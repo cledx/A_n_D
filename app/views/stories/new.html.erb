@@ -1,0 +1,6 @@
+<%= simple_form_for @story, url: character_stories_path do |f| %>
+    <%= f.input :mood, label: "What is the tone of your story?", placeholder: "Lighthearted" %>
+    <%= f.input :setting, label: "Where is your story starting?", placeholder: "'Forest', 'City', 'Castle', etc." %>
+    <%= f.input :context, label: "Put any additional background information here! (The more you give, the better the story!)", placeholder: "The night my village burned, I stood helpless as goblins poured from the treeline, their laughter cutting sharper than any blade. Now I ride alone toward their caves, steel in hand and vengeance in my chest, and I will not return until they are silenced." %>
+    <%= f.submit %>
+<% end %>
