@@ -2,7 +2,12 @@
   <h1>List of stories</h1>
   <ul>
     <% @stories.each do |story| %>
-      <li><%= link_to story.title, stories_path(story) %></li>
+      <% if story.messages.any? %>
+        <% last_message = story.messages.last %>
+        <li><%= link_to story.title, message_path(last_message) %></li>
+      <% else %>
+        <li><%= story.title %></li>
+      <% end %>
     <% end %>
   </ul>
 </div>
