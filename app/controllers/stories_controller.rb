@@ -1,6 +1,12 @@
 class StoriesController < ApplicationController
   before_action :find_character, only: [:new, :create]
 
+  def index
+    @stories = current_user.stories
+    @characters = current_user.characters
+    @character = Character.find(params[:character_id])
+  end
+  
   def new
     @story = Story.new
   end

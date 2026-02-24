@@ -25,7 +25,7 @@ puts "Seeding DB..."
   puts "User: #{user.email}"
   puts "*" * SPACER
   user.save!
-  2.times do 
+  2.times do
     character = Character.new({
     user_id: user.id,
     character_class: CLASSES.sample,
