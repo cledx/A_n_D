@@ -11,6 +11,7 @@ SPACER = 30
 puts "Cleaning DB..."
 Character.destroy_all
 Story.destroy_all
+User.destroy_all
 
 puts "Seeding DB..."
 
@@ -52,5 +53,10 @@ puts "Seeding DB..."
     puts "Setting: #{story.setting}."
     puts "Tone: #{story.mood}"
     story.save!
+    Message.create!({
+      story_id: story.id,
+      content: "This is the only message for #{story.title}"
+    })
+    puts "Message added"
   end
 end
