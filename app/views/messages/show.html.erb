@@ -1,0 +1,18 @@
+<h1><%= @story.title %></h1>
+
+<ul>
+  <% @display_messages.each do |message| %>
+    <li><%= message.content %></li>
+  <% end %>
+</ul>
+
+<div>
+  <%= @character.name %>
+</div>
+
+<%= simple_form_for @message, url: story_messages_path(@current_message.story_id, @message), method: :post do |f| %>
+  <%= f.input :content %>
+  <%= f.submit %>
+<% end %>
+
+<%= link_to "Dashboard", stories_path %>

@@ -1,0 +1,230 @@
+<div class="container-fluid character-wrapper">
+  <div class="row vh-90">
+
+    <%= form_with model: @character,
+                  local: true,
+                  class: "row w-100 m-0 h-100" do |f| %>
+
+      <!-- ===== ERROR MESSAGES ===== -->
+      <% if @character.errors.any? %>
+        <div class="alert alert-danger m-3">
+          <ul class="mb-0">
+            <% @character.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <!-- ================= LEFT (60%) ================= -->
+      <div class="col-lg-7 preview-column d-flex align-items-center justify-content-center">
+
+        <div class="card preview-card w-100 p-4 h-100 d-flex flex-column">
+
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>Create Character</h5>
+
+            <button type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    id="editAppearanceBtn">
+              Edit
+            </button>
+          </div>
+
+          <div class="preview-image-wrapper text-center mt-3 flex-grow-1 d-flex align-items-center justify-content-center">
+            <%= image_tag "https://placehold.co/500x600?text=Character",
+                  class: "img-fluid preview-image" %>
+          </div>
+
+          <div id="appearanceInput" class="d-none mt-3">
+            <%= f.label :bio, "Appearance Description" %>
+            <%= f.text_area :bio, class: "form-control", rows: 3 %>
+          </div>
+
+          <div class="text-center mt-3">
+            <button type="button" class="btn btn-outline-primary">
+              Generate Appearance
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- ================= RIGHT (40%) ================= -->
+      <div class="col-lg-5 form-column d-flex">
+
+        <div class="card form-card w-100 p-4 h-100 d-flex flex-column">
+
+          <!-- ===== FIXED SECTION ===== -->
+          <div class="fixed-basic-info">
+
+            <div class="mb-3">
+              <%= f.label :name, "Character Name" %>
+              <%= f.text_field :name, class: "form-control", required: true %>
+            </div>
+
+            <div>
+              <label class="form-label">Gender</label><br>
+
+              <% ["Male", "Female", "Other"].each do |gender| %>
+                <%= f.radio_button :gender,
+                      gender,
+                      class: "btn-check",
+                      id: "gender_#{gender}" %>
+
+                <%= label_tag "gender_#{gender}",
+                      gender,
+                      class: "btn btn-outline-primary me-2 mb-2" %>
+              <% end %>
+            </div>
+
+            <hr>
+          </div>
+
+
+          <!-- ===== STEPS AREA ===== -->
+          <div class="steps-wrapper flex-grow-1 overflow-auto">
+
+            <!-- STEP 1 -->
+            <div class="form-step" id="step-1">
+              <h6>Select Class</h6>
+
+              <div class="row">
+                <% ["Warrior","Mage","Rogue",
+                    "Cleric","Paladin","Ranger",
+                    "Monk","Bard","Druid"].each do |klass| %>
+
+                  <div class="col-4 mb-3">
+                    <%= f.radio_button :character_class,
+                          klass,
+                          class: "btn-check",
+                          id: "class_#{klass}" %>
+
+                    <%= label_tag "class_#{klass}",
+                          klass,
+                          class: "btn btn-outline-dark w-100" %>
+                  </div>
+                <% end %>
+              </div>
+
+              <div class="text-end mt-3">
+                <button type="button" class="btn btn-primary next-step">
+                  Next
+                </button>
+              </div>
+            </div>
+
+
+            <!-- STEP 2 -->
+            <div class="form-step d-none" id="step-2">
+              <h6>Select Race</h6>
+
+              <div class="row">
+                <% ["Human","Elf","Dwarf",
+                    "Orc","Tiefling","Gnome",
+                    "Dragonborn","Halfling","Half-Elf"].each do |race| %>
+
+                  <div class="col-4 mb-3">
+                    <%= f.radio_button :race,
+                          race,
+                          class: "btn-check",
+                          id: "race_#{race}" %>
+
+                    <%= label_tag "race_#{race}",
+                          race,
+                          class: "btn btn-outline-secondary w-100" %>
+                  </div>
+                <% end %>
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary prev-step">
+                  Back
+                </button>
+
+                <button type="button" class="btn btn-primary next-step">
+                  Next
+                </button>
+              </div>
+            </div>
+
+
+            <!-- STEP 3 -->
+            <div class="form-step d-none" id="step-3">
+              <h6>Biography</h6>
+
+              <%= f.text_area :bio,
+                    class: "form-control mb-3",
+                    rows: 5 %>
+
+              <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary prev-step">
+                  Back
+                </button>
+
+                <%= f.submit "Create Character",
+                      class: "btn btn-success" %>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>
+
+
+<!-- ===== PASS CURRENT STEP FROM CONTROLLER ===== -->
+<script>
+  window.initialStep = <%= @current_step || 0 %>;
+</script>
+
+
+<!-- ===== WIZARD SCRIPT ===== -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const steps = document.querySelectorAll(".form-step");
+  const nextBtns = document.querySelectorAll(".next-step");
+  const prevBtns = document.querySelectorAll(".prev-step");
+  const editBtn = document.getElementById("editAppearanceBtn");
+  const appearanceInput = document.getElementById("appearanceInput");
+
+  let currentStep = window.initialStep || 0;
+
+  function showStep(index) {
+    steps.forEach((step, i) => {
+      step.classList.toggle("d-none", i !== index);
+    });
+  }
+
+  nextBtns.forEach(btn => {
+    btn.addEventListener("click", function () {
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    });
+  });
+
+  prevBtns.forEach(btn => {
+    btn.addEventListener("click", function () {
+      if (currentStep > 0) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    });
+  });
+
+  if (editBtn) {
+    editBtn.addEventListener("click", function () {
+      appearanceInput.classList.toggle("d-none");
+    });
+  }
+
+  showStep(currentStep);
+});
+</script>

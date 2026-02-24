@@ -5,11 +5,11 @@ default: &default
 
 development:
   <<: *default
-  database: A_n_D_development
+  database: a_n_d_development
 
 test:
   <<: *default
-  database: A_n_D_test
+  database: a_n_d_test
 
 production:
   primary:
