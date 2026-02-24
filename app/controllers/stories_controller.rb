@@ -1,6 +1,6 @@
 class StoriesController < ApplicationController
   def index
-    @stories = Story.all
-    @characters = Character.all
+    @stories = current_user.stories
+    @characters = current_user.characters
   end
 end
