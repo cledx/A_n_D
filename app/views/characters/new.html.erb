@@ -1,14 +1,28 @@
 <div class="container-fluid character-wrapper">
-  <div class="row vh-900">
+  <div class="row vh-90">
 
-    <%= form_with model: @character, local: true, class: "row w-100 m-0 h-100" do |f| %>
-<h5 class="m-4">Create Character</h5>
+    <%= form_with model: @character,
+                  local: true,
+                  class: "row w-100 m-0 h-100" do |f| %>
+
+      <!-- ===== ERROR MESSAGES ===== -->
+      <% if @character.errors.any? %>
+        <div class="alert alert-danger m-3">
+          <ul class="mb-0">
+            <% @character.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
       <!-- ================= LEFT (60%) ================= -->
       <div class="col-lg-7 preview-column d-flex align-items-center justify-content-center">
 
         <div class="card preview-card w-100 p-4 h-100 d-flex flex-column">
 
           <div class="d-flex justify-content-between align-items-center">
+            <h5>Create Character</h5>
 
             <button type="button"
                     class="btn btn-sm btn-outline-secondary"
@@ -47,14 +61,15 @@
 
             <div class="mb-3">
               <%= f.label :name, "Character Name" %>
-              <%= f.text_field :name, class: "form-control" %>
+              <%= f.text_field :name, class: "form-control", required: true %>
             </div>
 
             <div>
               <label class="form-label">Gender</label><br>
 
               <% ["Male", "Female", "Other"].each do |gender| %>
-                <%= f.radio_button :gender, gender,
+                <%= f.radio_button :gender,
+                      gender,
                       class: "btn-check",
                       id: "gender_#{gender}" %>
 
@@ -160,6 +175,15 @@
     <% end %>
   </div>
 </div>
+
+
+<!-- ===== PASS CURRENT STEP FROM CONTROLLER ===== -->
+<script>
+  window.initialStep = <%= @current_step || 0 %>;
+</script>
+
+
+<!-- ===== WIZARD SCRIPT ===== -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -169,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const editBtn = document.getElementById("editAppearanceBtn");
   const appearanceInput = document.getElementById("appearanceInput");
 
-  let currentStep = 0;
+  let currentStep = window.initialStep || 0;
 
   function showStep(index) {
     steps.forEach((step, i) => {
@@ -195,9 +219,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  editBtn.addEventListener("click", function () {
-    appearanceInput.classList.toggle("d-none");
-  });
+  if (editBtn) {
+    editBtn.addEventListener("click", function () {
+      appearanceInput.classList.toggle("d-none");
+    });
+  }
 
   showStep(currentStep);
 });
