@@ -2,7 +2,7 @@ class StoriesController < ApplicationController
   before_action :find_character, only: [:new, :create]
 
   def new
-    @story = Story.new()
+    @story = Story.new
   end
 
   def create
