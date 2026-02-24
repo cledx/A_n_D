@@ -11,8 +11,6 @@ class CharactersController < ApplicationController
       redirect_to new_character_story_path(@character),
                   notice: "Character created! Now write the story."
     else
-      puts "ERROS:"
-      puts @character.errors.full_messages
       render :new, status: :unprocessable_entity
     end
   end
