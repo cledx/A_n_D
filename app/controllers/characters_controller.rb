@@ -1,13 +1,16 @@
 class CharactersController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     @character = Character.new
   end
 
   def create
-    @character = Character.new(character_params)
+    @character = current_user.characters.build(character_params)
 
     if @character.save
-      redirect_to @character, notice: "Character created successfully!"
+      redirect_to new_character_story_path(@character),
+                  notice: "Character created! Now write the story."
     else
       render :new, status: :unprocessable_entity
     end
@@ -18,10 +21,10 @@ class CharactersController < ApplicationController
   def character_params
     params.require(:character).permit(
       :name,
-      :bio,
-      :character_class,
       :gender,
-      :race
+      :character_class,
+      :race,
+      :bio
     )
   end
 end
