@@ -1,13 +1,23 @@
 <div class="container">
-  <h1>List of stories</h1>
-  <ul>
-    <% @stories.each do |story| %>
-      <% if story.messages.any? %>
-        <% last_message = story.messages.last %>
-        <li><%= link_to story.title, message_path(last_message) %></li>
-      <% else %>
-        <li><%= story.title %></li>
+  <div>
+    <h1>Stories</h1>
+    <ul>
+      <% @stories.each do |story| %>
+        <% if story.messages.any? %>
+          <% last_message = story.messages.last %>
+          <li><%= link_to story.title, message_path(last_message) %></li>
+        <% else %>
+          <li><%= story.title %></li>
+        <% end %>
       <% end %>
-    <% end %>
-  </ul>
+    </ul>
+  </div>
+  <div>
+    <h2>My Characters</h2>
+    <ul>
+      <% @characters.each do |character| %>
+        <li><%= link_to character.name, character_path(character) %></li>
+      <% end %>
+    </ul>
+  </div>
 </div>
