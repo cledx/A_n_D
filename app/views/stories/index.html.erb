@@ -1,0 +1,8 @@
+<div class="container">
+  <h1>List of stories</h1>
+  <ul>
+    <% @stories.each do |story| %>
+      <li><%= link_to story.title, stories_path(story) %></li>
+    <% end %>
+  </ul>
+</div>
