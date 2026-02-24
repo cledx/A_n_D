@@ -1,9 +1,56 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+CLASSES = ["Warrior", "Knight", "Mage", "Sorcerer", "Wizard", "Thief", "Archer", "Ranger", "Barbarian", "Cleric"]
+NAMES = ["Aelwyn", "Thalara", "Bromrik", "Kaelis", "Myrra", "Dornath", "Elowen", "Varek", "Sylpha", "Korrin", "Faelar", "Braska", "Lirien", "Torvek", "Nyssa"]
+GENDER = ["Male", "Female", "Other"]
+RACES = ["Elf", "Orc", "Dwarf", "Gnome", "Human", "Half-Elf", "Kobold", "Goblin"]
+MOOD = ["Dark", "Lighthearted", "Wacky", "Serious", "Uplifting", "Tragic"]
+SETTING = ["Forest", "City", "Desert", "Castle", "Dragon's Lair", "High Seas"]
+THEME = ["Fantasy", "High Fantasy", "Low Fantasy", "Pirate", "Sci-fi", "Modern", "Magical"]
+EMAIL = ["carlos@gmail.com", "koji@gmail.com", "glau@gmail.com", "katherine@gmail.com"]
+SPACER = 30
+
+puts "Cleaning DB..."
+Character.destroy_all
+Story.destroy_all
+
+puts "Seeding DB..."
+
+
+4.times do |i|
+  user = User.new({
+    email: EMAIL[i],
+    password: "123456"
+  })
+  puts "*" * SPACER
+  puts "User: #{user.email}"
+  puts "*" * SPACER
+  user.save!
+  2.times do 
+    character = Character.new({
+    user_id: user.id,
+    character_class: CLASSES.sample,
+    gender: GENDER.sample,
+    name: NAMES.sample,
+    race: RACES.sample,
+    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+    })
+    puts "^" * SPACER
+    puts "Character: #{character.name}"
+    puts "Race: #{character.race}"
+    puts "Class :#{character.character_class}"
+    puts "v" * SPACER
+    character.save!
+    story = Story.new({
+      character_id: character.id,
+      health_points: 20,
+      level: rand(1..10),
+      mood: MOOD.sample,
+      setting: SETTING.sample,
+      summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      title: "#{character.name}'s Story"
+    })
+    puts "Story: #{story.title}"
+    puts "Setting: #{story.setting}."
+    puts "Tone: #{story.mood}"
+    story.save!
+  end
+end
