@@ -11,10 +11,14 @@ class MessagesController < ApplicationController
       @ai_message = Message.new({
         story_id: @message.story_id,
         role: "assistant", 
-        content: @ai_response["story_text"]
+        content: @ai_response["story_text"],
+        option_1: @ai_response["option_1"],
+        option_2: @ai_response["option_2"],
+        dice_roll: @ai_response["dice_roll"]
       })
       @ai_message.save
       @story.health_points += @ai_response["health_change"]
+      @story.save
       redirect_to message_path(@ai_message)
     else
       @display_messages = @story.messages.last(5)
@@ -72,7 +76,11 @@ class MessagesController < ApplicationController
     @ruby_llm = RubyLLM.chat
     @ruby_llm.with_instructions(generate_system_prompt)
     build_conversation_history
-    ai_message = @ruby_llm.ask("#{player_action_data}")
+    if @story.health_points == 0
+      ai_message = @ruby_llm.ask("(SYSTEM MESSAGE): Player's Health has dropped to 0")
+    else
+      ai_message = @ruby_llm.ask("#{player_action_data}")
+    end
     @ai_json = {}
     valid_response = false
     until valid_response
