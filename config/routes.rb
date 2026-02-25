@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   # root "posts#index"
   resources :characters, only: [ :new, :create, :show, :update, :destroy ] do
     resources :stories, only: [ :new, :create ]
+
+    post :generate_appearance, on: :collection
   end
 
   resources :stories, only: [ :index, :destroy ] do
