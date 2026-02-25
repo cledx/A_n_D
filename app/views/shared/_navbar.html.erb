@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+<nav class="navbar navbar-expand-sm navbar-light navbar-lewagon bg-primary">
   <div class="container-fluid">
-    <%= link_to "#", class: "navbar-brand" do %>
+    <%= link_to "/", class: "navbar-brand" do %>
       <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
     <% end %>
 
@@ -28,8 +28,11 @@
             </div>
           </li>
         <% else %>
-          <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+          <li class="nav-item btn btn-secondary me-3">
+            <%= link_to "Register", new_user_session_path, class: "nav-link text-white p-0" %>
+          </li>
+          <li class="nav-item btn btn-light">
+            <%= link_to "Login", new_user_session_path, class: "nav-link text-primary p-0" %>
           </li>
         <% end %>
       </ul>
