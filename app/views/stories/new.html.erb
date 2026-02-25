@@ -1,3 +1,7 @@
+<% if @character.photo.attached? %>
+  <%= cl_image_tag(@character.photo.key) %>
+<% end %>
+
 <%= simple_form_for @story, url: character_stories_path do |f| %>
     <%= f.input :mood, label: "What is the tone of your story?", placeholder: "Lighthearted" %>
     <%= f.input :setting, label: "Where is your story starting?", placeholder: "'Forest', 'City', 'Castle', etc." %>
