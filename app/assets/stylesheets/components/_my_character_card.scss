@@ -1,0 +1,32 @@
+.my-character-card {
+  text-decoration: none;
+  color: black;
+  background: white;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: 0.2s ease;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.my-character-card > img {
+  height: 150px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.my-character-card h2 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.my-character-card p {
+  font-size: 12px;
+  opacity: .7;
+  margin: 0;
+}
+
+.my-character-card .my-character-info {
+  padding: 16px;
+  justify-content: space-between;
+  position: relative;
+}
