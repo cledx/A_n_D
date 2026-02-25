@@ -54,6 +54,7 @@ puts "Seeding DB..."
     puts "Tone: #{story.mood}"
     story.save!
     Message.create!({
+      role: "user",
       story_id: story.id,
       content: "This is the only message for #{story.title}"
     })

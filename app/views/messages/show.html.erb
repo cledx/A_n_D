@@ -1,18 +1,86 @@
-<h1><%= @story.title %></h1>
+<div class="container py-4">
+  <div class="row g-4">
+    <!-- LEFT: fixed-size scrollable panel -->
+    <div class="col-12 col-lg-7">
+      <div class="panel panel--left pe-3">
+        
+          <% @display_messages.each do |message| %>
+            <% if message.role == "user" %>
+                <div class="chat-line d-flex flex-column align-items-end text-end">
+                    <p class="me-2 text-end m-0"> <%= @character.name %> </p>
+                    <div class="chat-bubble mb-3 ms-2 p-1 text-end border rounded-5">
+                        <%= message.content %>
+                    </div>
+                </div>
+            <% else %>
+                <div class="chat-line">
+                    <p class="me-2 m-0"> Narrator </p>
+                    <div class="chat-bubble mb-3 ms-2 p-1 text-end border rounded-5">
+                        <%= message.content %>
+                    </div>
+                </div>
+            <% end %>
+          <% end %>
+        
+      </div>
+    </div>
 
-<ul>
-  <% @display_messages.each do |message| %>
-    <li><%= message.content %></li>
-  <% end %>
-</ul>
+    <!-- RIGHT: stacked panel + buttons + input + submit -->
+    <div class="col-12 col-lg-5">
+      <div class="right-stack">
+        <!-- Top right fixed-size bordered panel -->
+        <div class="panel panel--right-top">
+          <div class="fw-semibold mb-2">Character</div>
+          <div><%= @character.name %></div>
+          <div>Level <%= @story.level %> - <%= @character.race %> <%= @character.character_class %></div>
+          <div>[PROFILE_IMG.png]</div>
+          <div>Health Points: <%= @story.health_points %></div>
+        </div>
 
-<div>
-  <%= @character.name %>
+        <!-- Button 1 -->
+        <%= button_to @story.messages.last.option_1,
+            story_messages_path(@current_message.story_id),
+            method: :post,
+            params: {
+                message: {
+                content: @story.messages.last.option_1
+                }
+            },
+            class: "btn btn-outline-dark pill-btn" 
+        %>
+
+        <!-- Button 2 -->
+        <%= button_to "#{@story.messages.last.option_2}",
+            story_messages_path(@current_message.story_id),
+            method: :post,
+            params: {
+                message: {
+                content: @story.messages.last.option_2
+                }
+            },
+            class: "btn btn-outline-dark pill-btn" 
+        %>
+
+        <!-- Chat input + submit button -->
+        <%= simple_form_for @message,
+              url: story_messages_path(@current_message.story_id, @message),
+              method: :post,
+              html: { class: "mb-0" } do |f| %>
+
+            <div class="panel panel--chat">
+                <%= f.input :content,
+                    as: :text,
+                    label: false,
+                    wrapper: false,
+                    input_html: { class: "chat-textarea" },
+                    placeholder: "Custom Choices go here..." %>
+            </div>
+
+          <div class="d-flex justify-content-end">
+            <%= f.button :submit, "Submit", class: "btn btn-dark btn-sm submit-mini" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
-
-<%= simple_form_for @message, url: story_messages_path(@current_message.story_id, @message), method: :post do |f| %>
-  <%= f.input :content %>
-  <%= f.submit %>
-<% end %>
-
-<%= link_to "Dashboard", stories_path %>
