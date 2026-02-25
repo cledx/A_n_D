@@ -31,7 +31,7 @@ class CharactersController < ApplicationController
 
     begin
       # Usando RubyLLM
-      response = RubyLLM.paint("An #{race} #{char_class} character in an RPG game. One full-body image of
+      response = RubyLLM.paint("An #{race} #{char_class} character in an RPG game. One front full-body image of
       a #{gender} character with #{appearance_desc} in pixel art style with white background.")
 
       image_url = response.url

@@ -1,6 +1,4 @@
-<% if @character.photo.attached? %>
-  <%= cl_image_tag(@character.photo.key) %>
-<% end %>
+
 
 <div class="row fill-page">
   <div class="col-12 bg-light">
@@ -10,7 +8,12 @@
       </div>
       <div class="col-4 p-0">
         <div class="horizontal-character-card">
-          <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg", class="w-50" />
+          <% if @character.photo.attached? %>
+            <%= cl_image_tag(@character.photo.key) %>
+          <% else %>
+            <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg", class="w-50" />
+          <% end %>
+
           <div class="horizontal-character-card-infos">
             <h2>Name</h2>
             <p>Level 100</p>
