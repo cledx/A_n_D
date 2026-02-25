@@ -2,8 +2,8 @@ class StoriesController < ApplicationController
   before_action :find_character, only: %i[new create]
 
   def index
-    @stories = current_user.stories
     @characters = current_user.characters
+    @stories = current_user.stories
   end
 
   def new
