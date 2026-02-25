@@ -1,31 +1,97 @@
-<div class="d-flex container align-items-center justify-content-between">
-  <div>
-    <div class="d-flex justify-content-between">
-      <h1>Stories</h1>
-      <p><%= link_to 'New Story', new_character_path %>
-    </div>
-    <div>
-      <ul>
-        <% @stories.each do |story| %>
-          <% if story.messages.any? %>
-            <% last_message = story.messages.last %>
-            <li><%= link_to story.title, message_path(last_message) %></li>
-          <% else %>
-            <li><%= story.title %></li>
+<div class="container px-3 pt-3">
+  <div class="row g-3">
+
+<%# stories grid %>
+
+    <div class="col-md-8">
+      <div class="bg-light p-4 rounded">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h1 class="mb-0">Stories</h1>
+          <%= link_to "New Journey",
+                new_character_path,
+                class: "btn btn-dark text-white" %>
+        </div>
+
+        <div class="stories-grid overflow-y-auto">
+          <% @stories.each do |story| %>
+
+            <% if story.messages.any? %>
+              <% last_message = story.messages.last %>
+
+              <%= link_to message_path(last_message),
+                    class: "story-card card-border my-2 text-decoration-none text-dark" do %>
+
+                <div class="story-image py-2 ps-2">
+                  <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg" %>
+                </div>
+
+                <div class="story-content">
+                  <h2><%= story.title %></h2>
+                  <p><%= truncate(last_message.content, length: 80) %></p>
+                </div>
+
+              <% end %>
+
+            <% else %>
+
+              <div class="story-card disabled my-2">
+                <div class="story-image">
+                  <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg" %>
+                </div>
+
+                <div class="story-content">
+                  <h3><%= story.title %></h3>
+                </div>
+              </div>
+
+            <% end %>
+
           <% end %>
-        <% end %>
-      </ul>
+        </div>
+
+      </div>
     </div>
-  </div>
-  <div>
-    <div class="d-flex justify-content-between">
-      <h2>My Characters</h2>
-      <p> <%= link_to 'New Character', new_character_path %></p>
+
+<%# characters panel %>
+
+    <div class="col-md-4">
+      <div class="bg-light p-4 rounded">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h1 class="m-0 pb-4 text-nowrap">My Characters</h2>
+          <%= link_to " + ",
+                new_character_path, class: "pb-2 mb-4 fs-3 fw-bold text-decoration-none btn" %>
+        </div>
+
+        <div class="my-character-card mb-4 pb-2">
+          <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg" />
+
+          <div class="my-character-info">
+            <h2 class="pb-2 fs-3">Character name</h2>
+
+            <div class="justify-content-between">
+              <p class="fs-4">Level 14</p>
+              <p class="fs-5">HP 96</p>
+              <p class="fs-5">Class</p>
+            </div>
+          </div>
+        </div>
+
+ <%# avatars %>
+        <ul class="list-unstyled d-flex flex-wrap gap-2">
+          <% @characters.each do |character| %>
+            <li>
+              <%= link_to character_stories_path(character) do %>
+                <%= image_tag "https://kitt.lewagon.com/placeholder/users/cveneziani",
+                      class: "avatar-large" %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+
+      </div>
     </div>
-    <ul>
-      <% @characters.each do |character| %>
-        <li><%= link_to character.name, character_path(character) %></li>
-      <% end %>
-    </ul>
+
   </div>
 </div>
