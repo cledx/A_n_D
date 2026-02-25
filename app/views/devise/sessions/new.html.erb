@@ -1,5 +1,5 @@
-<div class="row g-4 align-items-center vh-100">
-  <div class="col-5 offset-2">
+<div class="d-flex justify-content-center align-items-center mt-5 mx-auto">
+  <div class="col-5">
     <div class="card bg-primary rounded-0 card-border">
       <div class="mb-2 mt-3 mx-3 bg-light">
         <div class="card-body">
@@ -18,10 +18,10 @@
             </div>
 
             <div class="form-actions">
-              <%= f.button :submit, "Log in" %>
+              <%= f.button :submit, "Log in", class: "btn btn-primary mb-2" %>
             </div>
           <% end %>
-
+          <p class="m-0">No account yet?</p>
           <%= render "devise/shared/links" %>
         </div>
       </div>
