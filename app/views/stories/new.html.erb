@@ -8,18 +8,26 @@
         <div class="horizontal-character-card">
           <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg", class="w-50" />
           <div class="horizontal-character-card-infos">
-            <h2>Name</h2>
-            <p>Level 100</p>
-            <p>HP 9 million</p>
+            <h2><%= @character.name %></h2>
+            <p><%= @character.race %> <%= @character.class %></p>
           </div>
         </div>
       </div>
     </div>
     <div class="container mt-3">
-        <h1>Option 1</h1>
+        <%= button_to "Option 1",
+            character_stories_path(@character),
+            method: :post,
+            params: {
+                mood: "Test Mood",
+                setting: "Test Setting",
+                context: "Test Context"
+            },
+            class: "btn btn-outline-dark pill-btn" 
+        %>
         <h1>Option 2</h1>
       <div class="mt-3">
-        <%= simple_form_for @story, url: character_stories_path do |f| %>
+        <%= simple_form_for @story, url: character_stories_path(@character) do |f| %>
           <%= f.input :mood, label: "What is the tone of your story?", placeholder: "Lighthearted", input_html: { class: "bg-white" } %>
           <%= f.input :setting, label: "Where is your story starting?", placeholder: "'Forest', 'City', 'Castle', etc.", input_html: { class: "bg-white" } %>
           <%= f.input :context, label: "Put any additional background information here! (The more you give, the better the story!)", placeholder: "The night my village burned, I stood helpless as goblins poured from the treeline, their laughter cutting sharper than any blade. Now I ride alone toward their caves, steel in hand and vengeance in my chest, and I will not return until they are silenced.", input_html: { class: "bg-white" } %>

@@ -17,16 +17,18 @@ class StoriesController < ApplicationController
                          title: "#{@character.name}'s Story",
                          summary: "",
                          level: 1,
-                         setting: params[:setting],
-                         mood: params[:mood]
+                         setting: params[:story][:setting],
+                         mood: params[:story][:mood]
                        })
     @story.context = params[:context] || ""
     if @story.save
-      @message = Message.create({
-                                  story_id: @story.id,
-                                  content: "You just created this story"
-                                })
-      redirect_to messages_path(@message)
+      @ruby_llm = RubyLLM.chat
+      @story_start = Message.new({
+        story_id: @story.id
+      })
+      @ruby_llm.with_instructions(@story.generate_system_prompt)
+      @ai_response = @story_start.generate_valid_story_response("Begin the story", @ruby_llm)
+      redirect_to message_path(@story_start)
     else
       render :new, status: :unprocessable_entity
     end
