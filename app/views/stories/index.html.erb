@@ -44,28 +44,25 @@
         <div class="my-character-card my-3 pt-3 ps-4 pe-4 pb-2">
           <% character = @selected_character %>
           <%= image_tag(
-                character&.img_url.presence ||
-                "placeholder.png",
+                character&.photo&.attached? ?
+                  cl_image_path(character.photo.key) :
+                  "placeholder.png",
                 class: "img-fluid"
               ) %>
           <div class="my-character-info">
-            <div class="border-bottom">
-              <h3 class="mt-2 mb-0"><%= character&.name || " " %></h3>
-              <p class="m-0 text-light"><%= character&.character_class || " " %></p>
-            </div>
-            <div class="d-flex mt-2 justify-content-between">
-              <p class="m-0">Level <%= character&.level || " " %></p>
-              <p class="m-0">HP <%= character&.hp || " " %></p>
-            </div>
+              <h3 class="mt-2 mb-0"><%= character.name || " " %></h3>
+              <div class="d-flex justify-content-between">
+                <p class="m-0 text-light"><%= character.character_class || " " %></p>
+                <p class="m-0 text-light"><%= character.race || " " %></p>
+              </div>
           </div>
         </div>
       </turbo-frame>
-      <!-- AVATARS -->
+<%# avatars %>
       <ul class="list-unstyled d-flex flex-wrap gap-2 mt-3">
         <% @characters.each do |character| %>
           <li>
-            <%= link_to character_path(character),
-                        data: { turbo_frame: "character_card" } do %>
+            <%= link_to stories_path(character_id: character.id), data: { turbo_frame: "character_card" } do %>
               <%= image_tag(
                     "placeholder.png",
                     class: "avatar-large"
@@ -104,7 +101,7 @@
         <% end %>
       </div>
       <div class="justify-content-center pb-3">
-        <%= link_to "Create New Character", new_character_path, class: "btn btn-primary mt-2" %>
+        <%= link_to "Create New Character", new_character_path, class: "btn btn-secondary mt-2" %>
       </div>
     </div>
   </div>
