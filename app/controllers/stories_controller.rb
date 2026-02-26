@@ -8,18 +8,11 @@ class StoriesController < ApplicationController
 
   def new
     @story = Story.new
-    @option_1 = Story.new({
-      character_id: @character.id,
-      mood: "Pending",
-      setting: "Pending",
-      title: "Pending"
-      }).generate_story_option
-    @option_2 = Story.new({
-      character_id: @character.id,
-      mood: "Pending",
-      setting: "Pending",
-      title: "Pending"
-      }).generate_story_option
+    @option_1 = StorySample.all.sample
+    @option_2 = StorySample.all.sample
+    while @option_1 == @option_2
+      @option_2 = StorySample.all.sample
+    end
   end
 
   def create
