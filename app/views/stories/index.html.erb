@@ -1,86 +1,58 @@
-
 <div class="row g-3">
-
 <%# stories grid %>
-
   <div class="col-md-8">
     <div class="bg-light p-4 card-border fill-page">
-
       <div class="d-flex justify-content-between align-items-center ms-3">
         <h2 class="mb-0">My Stories</h2>
-        <%= link_to "New Journey",
-              new_character_path,
-              class: "btn btn-secondary me-3" %>
+        <%= link_to "New Journey", new_character_path, class: "btn btn-secondary me-3" %>
       </div>
-
       <div class="stories-grid overflow-y-auto">
         <% @stories.each do |story| %>
-
           <% if story.messages.any? %>
             <% last_message = story.messages.last %>
-
-            <%= link_to message_path(last_message),
-                  class: "story-card text-decoration-none text-dark" do %>
-
+            <%= link_to message_path(last_message), class: "story-card text-decoration-none text-dark" do %>
               <div class="story-image py-2 ps-2">
                 <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg" %>
               </div>
-
               <div class="story-content">
                 <h2><%= story.title %></h2>
                 <p><%= truncate(last_message.content, length: 80) %></p>
               </div>
-
             <% end %>
-
           <% else %>
-
             <div class="story-card disabled my-2">
               <div class="story-image">
                 <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg" %>
               </div>
-
               <div class="story-content">
                 <h3><%= story.title %></h3>
               </div>
             </div>
-
           <% end %>
-
         <% end %>
       </div>
-
     </div>
   </div>
-
 <%# characters panel %>
-
   <div class="col-md-4">
     <div class="bg-light p-4 card-border fill-page">
-
       <div class="d-flex justify-content-between align-items-center">
         <h2 class="mb-0">My Characters</h2>
-        <%= link_to "+",
-              new_character_path,
-              class: "btn btn-primary" %>
+        <%= link_to "+", new_character_path, class: "btn btn-primary" %>
       </div>
-
       <div class="my-character-card my-3 pt-3 ps-4 pe-4 pb-2">
         <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg", class="img-fluid" />
-
         <div class="my-character-info">
           <div class="border-bottom">
             <h3 class="mt-2 mb-0">Character name</h3>
             <p class="m-0 text-light">Class</p>
           </div>
-
           <div class="d-flex mt-2 justify-content-between">
             <p class="m-0">Level 14</p>
             <p class="m-0">HP 96</p>
           </div>
         </div>
       </div>
-
 <%# avatars %>
       <ul class="list-unstyled d-flex flex-wrap gap-2">
         <% @characters.each do |character| %>
@@ -92,8 +64,6 @@
           </li>
         <% end %>
       </ul>
-
     </div>
   </div>
-
 </div>
