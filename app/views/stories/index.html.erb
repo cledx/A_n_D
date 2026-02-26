@@ -12,7 +12,11 @@
             <% last_message = story.messages.last %>
             <%= link_to message_path(last_message), class: "story-card text-decoration-none text-dark" do %>
               <div class="story-image py-2 ps-2">
-                <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg" %>
+                <% if story.character.photo.attached? %>
+                  <%= cl_image_tag(story.character.photo.key) %>
+                  <% else %>
+                  <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg"/>
+                <% end %>
               </div>
               <div class="story-content">
                 <h2><%= story.title %></h2>
@@ -22,7 +26,11 @@
           <% else %>
             <div class="story-card disabled my-2">
               <div class="story-image">
-                <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg" %>
+                <% if story.character.photo.attached? %>
+                  <%= cl_image_tag(story.character.photo.key) %>
+                  <% else %>
+                  <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg"/>
+                <% end %>
               </div>
               <div class="story-content">
                 <h3><%= story.title %></h3>

@@ -1,0 +1,10 @@
+.btn-custom {
+  color: $dark;
+  border: 1px solid $dark;
+}
+
+.btn-custom:hover {
+  background-color: white;
+  cursor: pointer;
+  border: 1px solid $dark;
+}
