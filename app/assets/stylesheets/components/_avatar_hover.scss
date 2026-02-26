@@ -6,10 +6,9 @@
 
 .character-name-popover {
   position: absolute;
-  top: 50%;
-  left: 110%;
-  transform: translateY(-50%);
-  background: black;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
   color: white;
   padding: 6px 10px;
   border-radius: 6px;
@@ -21,5 +20,5 @@
 
 .character-hover-wrapper:hover .character-name-popover {
   opacity: 1;
-  transform: translateY(-50%) translateX(5px);
+  transform: translateX(-50%) translateY(5px);
 }
