@@ -4,6 +4,7 @@ class StoriesController < ApplicationController
   def index
     @characters = current_user.characters
     @stories = current_user.stories
+    @story = Story.new
   end
 
   def new
