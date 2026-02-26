@@ -1,3 +1,7 @@
+<% if @character.photo.attached? %>
+  <%= cl_image_tag(@character.photo.key) %>
+<% end %>
+
 <div class="row fill-page">
   <div class="col-12 bg-light">
     <div class="row align-items-center border-bottom border-3 border-dark">
