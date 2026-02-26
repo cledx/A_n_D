@@ -6,29 +6,30 @@
     </div>
   </div>
 
-  <div class="row justify-content-center align-items-stretch gx-5">
+  <div class="row justify-content-center align-items-center g-4">
 
-    <div class="col-md-5 d-flex">
-      <div class="card bg-primary rounded-0 card-border w-100">
+    <div class="col-md-5">
+      <div class="card bg-primary rounded-0 card-border-dark">
 
-        <div class="mb-2 mt-3 mx-3 bg-light flex-grow-1">
+        <div class="mb-2 mt-3 mx-3 bg-light">
           <div class="card-body text-center">
-            <h2 class="card-title p-4 fw-normal">
+            <h2 class="card-title p-3 fw-normal text-start">
               Experience incredible adventures, create your own characters,
               and explore a new world!
+              <br><br>[...]
             </h2>
           </div>
         </div>
 
         <%= link_to "Start an adventure", stories_path,
-          class: "btn btn-secondary mx-3 mb-3 btn-lg fs-4 fw-bold" %>
+          class: "btn btn-secondary mx-3 mb-3 btn-lg fs-4 fw-normal mt-2" %>
 
       </div>
     </div>
 
-    <div class="col-md-5 d-flex">
+    <div class="col-md-4 text-center">
       <%= image_tag "https://i.pinimg.com/736x/dd/33/8d/dd338dfb729e2a111a9e81f443226518.jpg",
-        class: "img-fluid w-100 h-100 object-fit-cover" %>
+        class: "img-fluid m-4" %>
     </div>
 
   </div>
