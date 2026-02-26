@@ -4,6 +4,13 @@ class StoriesController < ApplicationController
   def index
     @characters = current_user.characters
     @stories = current_user.stories
+    @story = Story.new
+    @selected_character =
+      if params[:character_id]
+        current_user.characters.find(params[:character_id])
+      else
+        @characters.first
+      end
   end
 
   def new

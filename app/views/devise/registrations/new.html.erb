@@ -12,14 +12,14 @@
               <%= f.input :email,
                           required: true,
                           autofocus: true,
-                          input_html: { autocomplete: "email", class: "custom-input" }%>
+                          input_html: { autocomplete: "email", class: "bg-white" }%>
               <%= f.input :password,
                           required: true,
                           hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                          input_html: { autocomplete: "new-password", class: "custom-input" } %>
+                          input_html: { autocomplete: "new-password", class: "bg-white" } %>
               <%= f.input :password_confirmation,
                           required: true,
-                          input_html: { autocomplete: "new-password", class: "custom-input" } %>
+                          input_html: { autocomplete: "new-password", class: "bg-white" } %>
             </div>
 
             <div class="form-actions">
