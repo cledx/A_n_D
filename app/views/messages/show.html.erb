@@ -1,89 +1,109 @@
-<div class="row g-5">
-  <!-- LEFT: fixed-size scrollable panel -->
-  <div class="col-8 px-0 bg-light bg-image card-border">
-    <div class="d-flex align-items-end h-100">
-      <div class="chat-bg max-vh-25 card-border overflow-y-auto pe-3 flex-grow-1 m-2">
-        <% @display_messages.each do |message| %>
-          <% if message.role == "user" %>
-            <div class="chat-line d-flex flex-column align-items-end p-1">
-              <p class="me-2 m-0 text-light"> <%= @character.name %> </p>
-              <div class="chat-bubble py-1 px-2 border rounded-5 border-light text-light">
-                <%= message.content %>
-              </div>
+<div class="row">
+  <div class="col-10 offset-1">
+    <div>
+      <div class="container card-borde-dark mb-2 bg-light">
+        <div class="d-flex align-items-center border-bottom border-primary ">
+          <%= link_to "<", root_path, class: "text-decoration-none" %>
+          <h2 class="ms-2 mb-0">Story Title</h2>
+        </div>
+        <div class="d-flex align-items-center">
+          <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg", class="img-fluid avatar-large ms-2" />
+          <div class="d-flex flex-column flex-grow-1 mx-2">
+            <div class="d-flex justify-content-between align-items-center">
+              <h4 class="mb-0"><%= @character.name %></h4>
+              <p class="ms-2 mb-0">Level <%= @story.level %> - <%= @character.race %></p>
             </div>
-          <% else %>
-            <div class="chat-line d-flex flex-column align-items-start p-1">
-              <p class="me-2 m-0 text-light"> Narrator </p>
-              <div class="chat-bubble py-1 px-2 border rounded-5 border-light text-light">
-                <%= message.content %>
-              </div>
+            <div class="mb-2">
+              <% if @story.health_points >= 50 %>
+                <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow=<%= @story.health_points %> aria-valuemin="0" aria-valuemax="100">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: <%= @story.health_points %>%"></div>
+              <% elsif @story.health_points >= 25 %>
+                <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow=<%= @story.health_points %> aria-valuemin="0" aria-valuemax="100">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" style="width: <%= @story.health_points %>%"></div>
+              <% else %>
+                <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow=<%= @story.health_points %> aria-valuemin="0" aria-valuemax="100">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" style="width: <%= @story.health_points %>%"></div>
+              <% end %>
             </div>
-          <% end %>
-        <% end %>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- RIGHT: stacked panel + buttons + input + submit -->
-  <div class="col-4">
-    <div class="d-flex flex-column justify-content-between gap-2 fill-page">
-      <div class="my-character-card card-border bg-light pt-3 ps-4 pe-4 pb-2">
-        <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg", class="img-fluid card-border" />
+    <div class="d-flex align-items-end px-0 bg-image play-screen-border">
+      <div class="d-flex align-items-end flex-grow-1">
+        <div class="chat-bg max-vh-25 overflow-y-auto flex-grow-1">
+          <% @display_messages.each do |message| %>
+            <% if message.role == "user" %>
+              <div class="pe-3">
+                <div class="chat-line d-flex flex-column align-items-end p-1">
+                  <p class="me-2 m-0 text-light"> <%= @character.name %> </p>
+                  <div class="chat-bubble py-1 px-2 border rounded-5 border-light text-light">
+                    <%= message.content %>
+                  </div>
+                </div>
+              </div>
+            <% else %>
+              <div class="pe-3">
+                <div class="chat-line d-flex flex-column align-items-start p-1">
+                  <p class="me-2 m-0 text-light"> Narrator </p>
+                  <div class="chat-bubble py-1 px-2 border rounded-5 border-light text-light">
+                    <%= message.content %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
 
-        <div class="my-character-info">
-          <div class="border-bottom">
-            <h3 class="mt-2 mb-0"><%= @character.name %></h3>
-            <p class="m-0 text-light"><%= @character.character_class %></p>
+          <div class="d-flex flex-grow-1 flex-column bg-light m-2">
+            <h3 class="ms-2 mt-2 mb-0">Choose an Option:</h3>
+            <!-- Button 1 -->
+            <div class="d-flex align-items-center">
+
+              <%= button_to @story.messages.last.option_1,
+                  story_messages_path(@current_message.story_id),
+                  method: :post,
+                  params: {
+                      message: {
+                      content: @story.messages.last.option_1
+                      }
+                  },
+                  form: { class: "w-50 ms-2" },
+                  class: "btn btn-custom p-2 text-dark rounded-1 w-100"
+              %>
+
+              <!-- Button 2 -->
+              <%= button_to "#{@story.messages.last.option_2}",
+                  story_messages_path(@current_message.story_id),
+                  method: :post,
+                  params: {
+                      message: {
+                      content: @story.messages.last.option_2
+                      }
+                  },
+                  form: { class: "w-50 m-2" },
+                  class: "btn btn-custom p-2 text-dark rounded-1 w-100"
+              %>
+            </div>
+
+            <%= simple_form_for @message,
+              url: story_messages_path(@current_message.story_id, @message),
+              method: :post,
+              html: { class: "mb-0 bg-light p-2 h-25" } do |f| %>
+                <%= f.input :content,
+                    as: :text,
+                    label: false,
+                    wrapper: false,
+                    input_html: { class: "mb-0 bg-white h-75" },
+                    placeholder: "Custom Choices go here..." %>
+
+              <div class="d-flex justify-content-end">
+                <%= f.button :submit, "Submit", class: "btn btn-outline-dark btn-sm mt-1" %>
+              </div>
+            <% end %>
           </div>
-            <p class="m-0">Level <%= @story.level %> - <%= @character.race %></p>
-            <p class="m-0">Health Points: <%= @story.health_points %></p>
         </div>
       </div>
-
-      <!-- Button 1 -->
-      <div class="d-flex align-items-center justify-content-center">
-        <%= button_to @story.messages.last.option_1,
-            story_messages_path(@current_message.story_id),
-            method: :post,
-            params: {
-                message: {
-                content: @story.messages.last.option_1
-                }
-            },
-            form: { class: "w-100" },
-            class: "btn btn-secondary p-2 text-dark rounded-pill w-100"
-        %>
-      </div>
-
-      <!-- Button 2 -->
-      <%= button_to "#{@story.messages.last.option_2}",
-          story_messages_path(@current_message.story_id),
-          method: :post,
-          params: {
-              message: {
-              content: @story.messages.last.option_2
-              }
-          },
-          form: { class: "w-100" },
-          class: "btn btn-secondary p-2 text-dark rounded-pill w-100"
-      %>
-
-      <!-- Chat input + submit button -->
-      <%= simple_form_for @message,
-            url: story_messages_path(@current_message.story_id, @message),
-            method: :post,
-            html: { class: "mb-0 bg-light p-2 card-border h-25" } do |f| %>
-              <%= f.input :content,
-                  as: :text,
-                  label: false,
-                  wrapper: false,
-                  input_html: { class: "mb-0 bg-white card-border h-75" },
-                  placeholder: "Custom Choices go here..." %>
-
-        <div class="d-flex justify-content-end">
-          <%= f.button :submit, "Submit", class: "btn btn-outline-dark mt-1" %>
-        </div>
-      <% end %>
     </div>
   </div>
 </div>
