@@ -11,7 +11,11 @@ class CharactersController < ApplicationController
     clean_params = character_params
     image_url = clean_params.delete(:img_url)
     @character = current_user.characters.build(clean_params)
-    file = URI.parse(image_url).open
+    if image_url == ""
+      file = URI.parse("https://i.pinimg.com/736x/b3/7e/ae/b37eae5174dd61d337fe1fb7d9bfe979.jpg").open
+    else
+      file = URI.parse(image_url).open
+    end
     @character.photo.attach(io: file, filename: "character.png", content_type: "image/png")
     if @character.save
       redirect_to new_character_story_path(@character),
@@ -27,12 +31,11 @@ class CharactersController < ApplicationController
     gender = params[:gender]
     appearance_desc = params[:appearance_description]
 
-    # prompt = "An #{race} #{char_class} character in an RPG game. Full-body, highly detailed depiction of a #{gender} character with #{appearance_desc}. The character's intricate design is presented in pixel art style, dynamic pose, front view, well-lit and colorful."
-
     begin
       # Usando RubyLLM
-      response = RubyLLM.paint("An #{race} #{char_class} character in an RPG game. One full-body image of
-      a #{gender} character with #{appearance_desc} in pixel art style with white background.")
+      response = RubyLLM.paint("An #{race} #{char_class} character in an RPG game. Just only one front-view full-body
+      image of a #{gender} character with #{appearance_desc} in pixel art style with white background,
+      don't put text or isolate shapes around .")
 
       image_url = response.url
 

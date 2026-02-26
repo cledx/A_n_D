@@ -8,3 +8,19 @@
 legend ~ div.form-check:first-of-type {
   clear: left;
 }
+
+.form-check-input {
+  background-color: white;   // unchecked background
+  border-color: #ccc;
+}
+
+.form-check-input:checked {
+  background-color: #5b2ca3; // checked color
+  border-color: #5b2ca3;
+}
+
+.custom-input {
+  background-color: #1a0033;
+  color: white;
+  border: none;
+}

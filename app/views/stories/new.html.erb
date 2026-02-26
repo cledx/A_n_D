@@ -1,6 +1,4 @@
-<% if @character.photo.attached? %>
-  <%= cl_image_tag(@character.photo.key) %>
-<% end %>
+
 
 <div class="row fill-page">
   <div class="col-12 bg-light">
@@ -10,20 +8,46 @@
       </div>
       <div class="col-4 p-0">
         <div class="horizontal-character-card">
-          <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg", class="w-50" />
+          <% if @character.photo.attached? %>
+            <%= cl_image_tag(@character.photo.key) %>
+          <% else %>
+            <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg", class="w-50" />
+          <% end %>
+
           <div class="horizontal-character-card-infos">
-            <h2>Name</h2>
-            <p>Level 100</p>
-            <p>HP 9 million</p>
+            <h2><%= @character.name %></h2>
+            <p><%= @character.race %> <%= @character.class %></p>
           </div>
         </div>
       </div>
     </div>
-    <div class="container mt-3">
-      <h1>Option 1</h1>
-      <h1>Option 2</h1>
+    <div class="container m-3">
+        <%= button_to "#{@option_1.summary}",
+            character_stories_path(@character),
+            method: :post,
+            params: {
+                story: {
+                  mood: @option_1.mood,
+                  setting: @option_1.setting,
+                  context: @option_1.context
+              }
+            },
+            class: "btn btn-outline-dark pill-btn" 
+        %>
+        <%= button_to "#{@option_2.summary}",
+            character_stories_path(@character),
+            method: :post,
+            params: {
+              story: {
+                mood: @option_2.mood,
+                setting: @option_2.setting,
+                context: @option_2.context
+              }
+            },
+            class: "btn btn-outline-dark pill-btn" 
+        %>
       <div class="mt-3">
-        <%= simple_form_for @story, url: character_stories_path do |f| %>
+        <%= simple_form_for @story, url: character_stories_path(@character) do |f| %>
           <%= f.input :mood, label: "What is the tone of your story?", placeholder: "Lighthearted", input_html: { class: "bg-white" } %>
           <%= f.input :setting, label: "Where is your story starting?", placeholder: "'Forest', 'City', 'Castle', etc.", input_html: { class: "bg-white" } %>
           <%= f.input :context, label: "Put any additional background information here! (The more you give, the better the story!)", placeholder: "The night my village burned, I stood helpless as goblins poured from the treeline, their laughter cutting sharper than any blade. Now I ride alone toward their caves, steel in hand and vengeance in my chest, and I will not return until they are silenced.", input_html: { class: "bg-white" } %>

@@ -32,6 +32,7 @@ export default class extends Controller {
   }
 
   generateImage() {
+    console.log("generating image");
     const raceChecked = this.racesTargets.find(el=>el.checked);
     const charClassChecked = this.classesTargets.find(el=>el.checked);
     const genderChecked = this.gendersTargets.find(el=>el.checked);

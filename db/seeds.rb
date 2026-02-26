@@ -61,3 +61,17 @@ puts "Seeding DB..."
     puts "Message added"
   end
 end
+
+puts "Generating Story Samples"
+
+20.times do 
+  story_sample = StorySample.new()
+  story_sample.generate.save!
+  puts "~" * SPACER
+  puts "Generated Story Sample:"
+  puts "Tone: #{story_sample.mood}"
+  puts "Setting: #{story_sample.setting}"
+  puts "Summary: #{story_sample.summary}"
+  puts "Context: #{story_sample.context}"
+  puts "~" * SPACER
+end
