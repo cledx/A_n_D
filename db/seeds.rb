@@ -64,7 +64,7 @@ end
 
 puts "Generating Story Samples"
 
-2.times do 
+20.times do 
   story_sample = StorySample.new()
   story_sample.generate.save!
   puts "~" * SPACER
