@@ -1,20 +1,36 @@
-<div class="d-flex justify-content-center text-light m-5 p-3">
-  <h1 class="display-1">A n D</h1>
-</div>
+<div class="container text-light">
 
-<div class="row g-4 align-items-center">
-  <div class="col-5 offset-2">
-    <div class="card bg-primary rounded-0 card-border">
-      <div class="mb-2 mt-3 mx-3 bg-light">
-        <div class="card-body text-center">
-          <h2 class="card-title p-4 fw-normal">Experience incredible adventures, create your own characters, and explore a new world![...]</h2>
-        </div>
-      </div>
-      <%= link_to "Start an adventure", stories_path,
-      class: "btn btn-secondary d-flex justify-content-center flex-grow-1 mx-3 mb-3" %>
+  <div class="row justify-content-center my-5">
+    <div class="col-auto text-center">
+      <h1 class="display-1">A n D</h1>
     </div>
   </div>
-  <div class="col-3 m-3">
-    <%= image_tag "https://i.pinimg.com/736x/dd/33/8d/dd338dfb729e2a111a9e81f443226518.jpg", class: "object-fit-cover" %>
+
+  <div class="row justify-content-center align-items-stretch gx-5">
+
+    <div class="col-md-5 d-flex">
+      <div class="card bg-primary rounded-0 card-border w-100">
+
+        <div class="mb-2 mt-3 mx-3 bg-light flex-grow-1">
+          <div class="card-body text-center">
+            <h2 class="card-title p-4 fw-normal">
+              Experience incredible adventures, create your own characters,
+              and explore a new world!
+            </h2>
+          </div>
+        </div>
+
+        <%= link_to "Start an adventure", stories_path,
+          class: "btn btn-secondary mx-3 mb-3 btn-lg fs-4 fw-bold" %>
+
+      </div>
+    </div>
+
+    <div class="col-md-5 d-flex">
+      <%= image_tag "https://i.pinimg.com/736x/dd/33/8d/dd338dfb729e2a111a9e81f443226518.jpg",
+        class: "img-fluid w-100 h-100 object-fit-cover" %>
+    </div>
+
   </div>
+
 </div>
