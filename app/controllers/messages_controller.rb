@@ -27,6 +27,7 @@ class MessagesController < ApplicationController
     @story = Story.find(@current_message.story_id)
     @display_messages = @story.messages.last(5)
     @character = @story.character
+
   end
 
   private

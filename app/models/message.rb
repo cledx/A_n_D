@@ -47,7 +47,7 @@ class Message < ApplicationRecord
 
   def narrator_response(user_message, ruby_llm)
     ruby_llm.with_instructions(story.generate_system_prompt)
-    message.build_conversation_history(ruby_llm)
+    user_message.build_conversation_history(ruby_llm)
     if @story.health_points == 0
       self.update({
         content: "You have died.",

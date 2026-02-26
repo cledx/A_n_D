@@ -1,4 +1,6 @@
 class Story < ApplicationRecord
+  SETTINGS = ["Forest", "City", "Desert", "Castle", "Dragon's Lair", "High Seas"]
+  MOODS = ["Dark", "Lighthearted", "Wacky", "Serious", "Uplifting", "Tragic"]
   belongs_to :character
   has_many :messages, dependent: :destroy
 
@@ -9,7 +11,7 @@ class Story < ApplicationRecord
   def generate_system_prompt
       <<-PROMPT
         You are a Dungeons and Dragons Dungeon Master
-        The user is a your player, adventuring in your story.
+        The user is your player, adventuring in your story.
         The user is a Level #{level} #{character.race} #{character.character_class}
         The story is set a #{mood} story set in a Fantasy #{setting}
         Narrate the user through the adventure, presenting them with challenges along the way.
@@ -22,4 +24,32 @@ class Story < ApplicationRecord
         }
       PROMPT
   end
+  
+  def generate_story_option
+    ruby_llm = RubyLLM.chat
+    self.update({
+      mood: MOODS.sample,
+      setting: SETTINGS.sample
+    })
+    summary_prompt = <<-PROMPT
+      You are an experienced screenwriter and D&D dungeon master
+      The user is a fellow DM asking for story hooks.
+      Produce a 1-2 sentence pitch for a story with a tone of #{mood} set in a #{setting}. Return only your pitch in a plain string.
+    PROMPT
+    self.update({
+      summary: ruby_llm.ask(summary_prompt).content
+    })
+    context_prompt = <<-PROMPT
+      You are an experienced screenwriter and D&D dungeon master
+      The user is a fellow DM asking for help.
+      Help them build out this story pitch with a paragraph of additional background context to build out the world and strengthen the narrative. Return only your paragraph and in a plain string.
+      The pitch: #{summary}
+    PROMPT
+    self.update({
+      context: ruby_llm.ask(context_prompt).content
+    })
+    return self
+  end
+
+
 end

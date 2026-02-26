@@ -8,18 +8,30 @@ class StoriesController < ApplicationController
 
   def new
     @story = Story.new
+    @option_1 = Story.new({
+      character_id: @character.id,
+      mood: "Pending",
+      setting: "Pending",
+      title: "Pending"
+      }).generate_story_option
+    @option_2 = Story.new({
+      character_id: @character.id,
+      mood: "Pending",
+      setting: "Pending",
+      title: "Pending"
+      }).generate_story_option
   end
 
   def create
     @story = Story.new({
                          character_id: @character.id,
                          health_points: 20,
-                         title: "#{@character.name}'s Story",
                          summary: "",
                          level: 1,
                          setting: params[:story][:setting],
                          mood: params[:story][:mood]
                        })
+    @story.title = params[:title] || "#{@character.name}'s Story"
     @story.context = params[:context] || ""
     if @story.save
       @ruby_llm = RubyLLM.chat
