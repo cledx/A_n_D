@@ -26,7 +26,6 @@ class CharactersController < ApplicationController
     char_class = params[:character_class]
     gender = params[:gender]
     appearance_desc = params[:appearance_description]
-
     # prompt = "An #{race} #{char_class} character in an RPG game. Full-body, highly detailed depiction of a #{gender} character with #{appearance_desc}. The character's intricate design is presented in pixel art style, dynamic pose, front view, well-lit and colorful."
 
     begin
