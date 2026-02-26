@@ -5,7 +5,7 @@ class Message < ApplicationRecord
 
   def build_conversation_history(ruby_llm)
     story.messages.each do |message|
-      ruby_llm.add_message(message)
+      ruby_llm.add_message(message) if message.role
     end
   end
 
@@ -48,14 +48,14 @@ class Message < ApplicationRecord
   def narrator_response(user_message, ruby_llm)
     ruby_llm.with_instructions(story.generate_system_prompt)
     user_message.build_conversation_history(ruby_llm)
-    if @story.health_points == 0
+    if story.health_points == 0
       self.update({
         content: "You have died.",
         option_1: "Game Over",
         option_2: "Game Over"
       })
     else
-      self.generate_valid_story_response("#{user_message.player_action_data}", @ruby_llm)
+      self.generate_valid_story_response("#{user_message.player_action_data}", ruby_llm)
     end
   end
 end
