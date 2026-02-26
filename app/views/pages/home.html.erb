@@ -1,23 +1,37 @@
-<div class="d-flex justify-content-center text-light m-5 p-3">
-  <h1 class="display-1">A n D</h1>
-</div>
+<div class="container text-light">
 
-<div class="row g-4 align-items-center">
-  <div class="col-5 offset-2">
-    <div class="card bg-primary rounded-0 card-border">
-      <div class="mb-2 mt-3 mx-3 bg-light">
-        <div class="card-body text-center">
-          <h5 class="card-title">Card title</h5>
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-          <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-        </div>
-      </div>
-      <div class="btn btn-secondary d-flex justify-content-center flex-grow-1 mx-3 mb-3">Start an adventure</div>
+  <div class="row justify-content-center my-5">
+    <div class="col-auto text-center">
+      <h1 class="display-1">A n D</h1>
     </div>
   </div>
-  <div class="col-3">
-    <%= image_tag "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIntd6BdB1q1kuOmQpEzhy9liSNzzju-xNgQ&s", class: "object-fit-cover" %>
+
+  <div class="row justify-content-center align-items-center g-4">
+
+    <div class="col-md-5">
+      <div class="card card-bg-purple-light rounded-0 card-border-dark">
+
+        <div class="mb-2 mt-3 mx-3 bg-light">
+          <div class="card-body text-center">
+            <h2 class="card-title p-3 fw-normal text-start">
+              Experience incredible adventures, create your own characters,
+              and explore a new world!
+              <br><br>[...]
+            </h2>
+          </div>
+        </div>
+
+        <%= link_to "Start an adventure", stories_path,
+          class: "btn btn-secondary mx-3 mb-3 btn-lg fs-4 fw-normal mt-2" %>
+
+      </div>
+    </div>
+
+    <div class="col-md-4 text-center">
+      <%= image_tag "https://i.pinimg.com/736x/dd/33/8d/dd338dfb729e2a111a9e81f443226518.jpg",
+        class: "img-fluid m-4" %>
+    </div>
+
   </div>
+
 </div>
