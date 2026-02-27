@@ -6,7 +6,7 @@
         <h2 class="mb-0">My Stories</h2>
         <%= link_to "New Journey", "#", class: "btn btn-secondary me-3", data: { bs_toggle: "modal", bs_target: "#newJourneyButton" } %>
       </div>
-      <div class="stories-grid overflow-y-auto">
+      <div class="stories-grid flex-grow-1 overflow-y-auto">
         <% @stories.each do |story| %>
           <% if story.messages.any? %>
             <% last_message = story.messages.last %>
