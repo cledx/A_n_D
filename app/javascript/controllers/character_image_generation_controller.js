@@ -64,6 +64,7 @@ export default class extends Controller {
         this.generateBtnTarget.innerText = "Generate Again"
         this.generateBtnTarget.disabled = false
         this.imageFileTarget.value = data.url
+        this.generateBtnTarget.insertAdjacentHTML("afterend", `<input type="submit" name="commit" value="Create Character" class="btn btn-secondary" data-disable-with="Create Character"></input>`)
       })
     } catch (error) {
       console.error(error);
