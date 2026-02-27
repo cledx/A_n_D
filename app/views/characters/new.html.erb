@@ -24,7 +24,7 @@
               <h5>Generate Character:</h5>
             <div class="d-flex justify-content-end align-items-center bg-white">
               <button type="button"
-                      class="btn btn-sm btn-outline-secondary text-dark"
+                      class="btn btn-sm btn-outline-secondary text-dark button-type"
                       id="editAppearanceBtn"
                       data-action="click->character-image-generation#showInput">
                 Edit
@@ -114,7 +114,7 @@
                 <% end %>
               </div>
               <div class="text-end">
-                <button type="button" class="btn btn-primary next-step" data-action="click->character-image-generation#next">
+                <button type="button" class="btn btn-primary next-step button-type" data-action="click->character-image-generation#next">
                   Next
                 </button>
               </div>
@@ -149,10 +149,10 @@
                 <% end %>
               </div>
               <div class="d-flex justify-content-between">
-                <button type="button" class="btn btn-outline-primary prev-step" data-action="click->character-image-generation#previous">
+                <button type="button" class="btn btn-outline-primary prev-step button-type" data-action="click->character-image-generation#previous">
                   Back
                 </button>
-                <button type="button" class="btn btn-primary next-step" data-action="click->character-image-generation#next">
+                <button type="button" class="btn btn-primary next-step button-type" data-action="click->character-image-generation#next">
                   Next
                 </button>
               </div>
@@ -168,10 +168,10 @@
               <input type="text" name="character[img_url]" id="" hidden data-character-image-generation-target="imageFile">
 
               <div class="d-flex justify-content-between">
-                <button type="button" class="btn btn-outline-primary prev-step" data-action="click->character-image-generation#previous">
+                <button type="button" class="btn btn-outline-primary prev-step button-type" data-action="click->character-image-generation#previous">
                   Back
                 </button>
-                <button type="button" class="btn btn-outline-primary" data-action="click->character-image-generation#generateImage" data-character-image-generation-target="generateBtn">
+                <button type="button" class="btn btn-outline-primary button-type" data-action="click->character-image-generation#generateImage" data-character-image-generation-target="generateBtn">
                   Generate Appearance
                 </button>
               </div>

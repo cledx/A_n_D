@@ -30,7 +30,7 @@
           </div>
         </div>
       </div>
-    </div> 
+    </div>
 
     <div class="d-flex align-items-end px-0 bg-image play-screen-border">
       <% if @story.health_points <= 0 %>
@@ -41,7 +41,7 @@
                     <%= @story.messages.last.content %>
                     <br><strong>You have died.</strong>
                   </div>
-          <%= link_to stories_path, class: "btn btn-outline pill-btn" do %> 
+          <%= link_to stories_path, class: "btn btn-outline pill-btn" do %>
             <div class="d-flex flex-column align-items-center game-over-btn">
               <i class="fa-solid fa-fire-burner"></i>
               <h3> Return to Camp </h3>
@@ -50,7 +50,7 @@
         </div>
         </div>
       <% end %>
-      
+
       <div class="d-flex align-items-end flex-grow-1">
         <div class="chat-bg max-vh-25 overflow-y-auto flex-grow-1">
           <% @display_messages.each do |message| %>
@@ -118,7 +118,7 @@
                     placeholder: "Custom Choices go here..." %>
 
               <div class="d-flex justify-content-end">
-                <%= f.button :submit, "Submit", class: "btn btn-outline-dark btn-sm mt-1" %>
+                <%= f.button :submit, "Submit", class: "btn btn-outline-dark btn-sm mt-1 button-type" %>
               </div>
             <% end %>
           </div>

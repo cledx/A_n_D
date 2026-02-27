@@ -4,7 +4,7 @@
     <div class="bg-light p-4 card-border fill-page">
       <div class="d-flex justify-content-between align-items-center ms-3">
         <h2 class="mb-0">My Stories</h2>
-        <%= link_to "New Journey", "#", class: "btn btn-secondary me-3", data: { bs_toggle: "modal", bs_target: "#newJourneyButton" } %>
+        <%= link_to "New Journey", "#", class: "btn btn-secondary me-3 button-type", data: { bs_toggle: "modal", bs_target: "#newJourneyButton" } %>
       </div>
       <div class="stories-grid flex-grow-1 overflow-y-auto mt-2">
         <% @stories.each do |story| %>
@@ -62,7 +62,7 @@
               <div class="d-flex justify-content-between">
                 <p class="m-0 text-light"><%= character.nil? ? "Class" : character.character_class %></p>
                 <p class="m-0 text-light"><%= character.nil? ? "Race" : character.race %></p>
-              </div>  
+              </div>
           </div>
         </div>
       </turbo-frame>
