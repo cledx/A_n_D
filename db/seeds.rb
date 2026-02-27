@@ -12,6 +12,7 @@ puts "Cleaning DB..."
 Character.destroy_all
 Story.destroy_all
 User.destroy_all
+StorySample.destroy_all
 
 puts "Seeding DB..."
 
@@ -64,7 +65,7 @@ end
 
 puts "Generating Story Samples"
 
-20.times do 
+2.times do
   story_sample = StorySample.new()
   story_sample.generate.save!
   puts "~" * SPACER
