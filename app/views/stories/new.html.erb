@@ -1,39 +1,69 @@
-<div class="row fill-page">
-  <div class="col-12 bg-light">
-    <div class="row align-items-center border-bottom border-3 border-dark">
-      <div class="col-8 px-3 py-2">
-        <h1 class="m-0">Create a Story With:</h1>
-      </div>
-      <div class="col-4 p-0">
-        <div class="horizontal-character-card">
+<div class="container-fluid fill-page">
+  <div class="row g-4">
+
+    <!-- 🧝 LEFT SIDE — 30% -->
+    <div class="col-lg-4 col-12 bg-light">
+      <div class="p-4">
+
+        <h5 class="mb-3">Character selected:</h5>
+
+        <div class="horizontal-character-story-card">
+
           <% if @character.photo.attached? %>
-            <%= cl_image_tag(@character.photo.key) %>
+            <%= cl_image_tag(
+              @character.photo.key,
+              width: 120,
+              height: 120,
+              crop: :fill,
+              gravity: :face,
+              class: "character-story-avatar"
+            ) %>
           <% else %>
-            <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg", class="w-50" />
+            <img src="https://i.pinimg.com/736x/29/01/57/29015723db5b76df02fd121e6939796b.jpg"
+                 class="img-fluid rounded" />
           <% end %>
 
-          <div class="horizontal-character-card-infos">
+          <div class="horizontal-character-story-card-infos mt-3">
             <h2><%= @character.name %></h2>
-            <p><%= @character.race %> <%= @character.class %></p>
+            <p class="mb-1">Level 1 - Health: 100</p>
+            <p class="mb-1">Race: <%= @character.race %></p>
+            <p class="mb-0">Class: <%= @character.character_class %></p>
           </div>
+
         </div>
       </div>
     </div>
-    <div class="container m-3">
-        <%= button_to "#{@option_1.summary}",
-            character_stories_path(@character),
-            method: :post,
-            params: {
+
+    <!-- 📖 RIGHT SIDE — 70% -->
+    <div class="col-lg-8 col-12 bg-light">
+      <div class="p-4">
+
+        <h1 class="mb-1">Start your adventure:</h1>
+        <p class="mb-4">Select a path or forge your own!</p>
+        <!-- Story options -->
+
+        <p class="small mb-0">Path 1:</p>
+        <div class="d-flex">
+            <%= button_to character_stories_path(@character),
+              method: :post,
+              params: {
                 story: {
                   mood: @option_1.mood,
                   setting: @option_1.setting,
                   context: @option_1.context
-              }
-            },
-            class: "btn btn-outline-dark pill-btn"
-        %>
-        <%= button_to "#{@option_2.summary}",
-            character_stories_path(@character),
+                }
+              },
+              class: "btn-path mb-2 w-100" do %>
+
+              <i class="fa-solid fa-caret-right me-2"></i>
+            <% end %>
+              <p class="txt-white ms-2 w-100"><%= @option_1.summary %></p>
+        </div>
+
+
+        <p class="small mb-0">Path 2:</p>
+        <div class="d-flex">
+        <%= button_to character_stories_path(@character),
             method: :post,
             params: {
               story: {
@@ -42,18 +72,45 @@
                 context: @option_2.context
               }
             },
-            class: "btn btn-outline-dark pill-btn"
-        %>
-      <div class="mt-3">
+              class: "btn-path mb-2 w-100" do %>
+
+              <i class="fa-solid fa-caret-right me-2"></i>
+            <% end %>
+            <p class="txt-white ms-2 w-100"><%= @option_2.summary %></p>
+        </div>
+        <hr>
+        <!-- Custom form -->
+        <div class="border-box-story">
+        <h6><i class="fa-solid fa-caret-right me-2"></i>Choose your own journey:</h6>
         <%= simple_form_for @story, url: character_stories_path(@character) do |f| %>
-          <%= f.input :mood, label: "What is the tone of your story?", placeholder: "Lighthearted", input_html: { class: "bg-white" } %>
-          <%= f.input :setting, label: "Where is your story starting?", placeholder: "'Forest', 'City', 'Castle', etc.", input_html: { class: "bg-white" } %>
-          <%= f.input :context, label: "Put any additional background information here! (The more you give, the better the story!)", placeholder: "The night my village burned, I stood helpless as goblins poured from the treeline, their laughter cutting sharper than any blade. Now I ride alone toward their caves, steel in hand and vengeance in my chest, and I will not return until they are silenced.", input_html: { class: "bg-white" } %>
-          <div class="d-flex justify-content-end">
-            <%= f.submit class: "btn btn-primary" %>
+          <div class="row">
+            <div class="col-md-6">
+              <%= f.input :mood,
+                  label: "What is the tone of your story?",
+                  placeholder: "Lighthearted",
+                  input_html: { class: "bg-white" } %>
+            </div>
+
+            <div class="col-md-6">
+              <%= f.input :setting,
+                  label: "Where is your story starting?",
+                  placeholder: "'Forest', 'City', 'Castle', etc.",
+                  input_html: { class: "bg-white" } %>
+            </div>
           </div>
+
+          <%= f.input :context,
+              as: :text,
+              input_html: { rows: 5, class: "bg-white" } %>
+
+          <div class="text-end mt-3">
+            <%= f.submit class: "btn btn-primary button-type" %>
+          </div>
+
         <% end %>
       </div>
+      </div>
     </div>
+
   </div>
 </div>
