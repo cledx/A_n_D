@@ -8,6 +8,8 @@
       </div>
       <div class="stories-grid flex-grow-1 overflow-y-auto mt-2">
         <% @stories.each do |story| %>
+          <div class="story-card">
+            
           <% if story.messages.any? %>
             <% last_message = story.messages.last %>
             <%= link_to message_path(last_message), class: "story-card text-decoration-none text-dark" do %>
@@ -37,6 +39,10 @@
               </div>
             </div>
           <% end %>
+          <% if story.health_points == 0 %>
+          <div class="game-over bg bg-black d-flex flex-column"></div>
+          <% end %>
+          </div>
         <% end %>
       </div>
     </div>
