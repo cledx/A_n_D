@@ -67,20 +67,18 @@
         </div>
       </turbo-frame>
 <%# avatars %>
-      <ul class="list-unstyled d-flex flex-wrap gap-2 mt-3">
-        <% @characters.each do |character| %>
-          <li>
-            <%= link_to stories_path(character_id: character.id), data: { turbo_frame: "character_card" } do %>
-              <%= image_tag( "placeholder.png", class: "avatar-large" ) %>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-<%# new journey button popup %>
+<ul class="list-unstyled d-flex flex-wrap gap-2 mt-3" data-controller="avatar-select">
+  <% @characters.each do |character| %>
+    <li>
+      <%= link_to stories_path(character_id: character.id), data: {turbo_frame: "character_card", action: "click->avatar-select#select"} do %>
+        <%= image_tag "placeholder.png", class: "avatar-large", data: { avatar_select_target: "avatar" } %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+<%# new journey button modal %>
 <div class="modal fade" id="newJourneyButton" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content text-white text-center">
       <div class="modal-header position-relative">
         <h1 class="modal-title fs-2 mx-auto">Start a New Journey</h1>
@@ -88,7 +86,7 @@
           x
         </button>
       </div>
-      <div class="modal-body pb-3">
+      <div class="modal-body">
         <% if current_user.characters.any? %>
           <h5 class="mb-4">Choose a Character</h5>
           <div class="d-flex flex-wrap justify-content-center gap-3">
