@@ -1,0 +1,39 @@
+@keyframes snap-bg-pulse {
+  0%   { background-size: 75%; }
+
+  49.9% { background-size: 75%; }  
+
+  50%  { background-size: 140%; }
+
+  74.9% { background-size: 140%; } 
+
+  75%  { background-size: 50%; }
+
+  99.9% { background-size: 50%; }
+
+  100% { background-size: 75%; }   
+}
+
+
+.game-over{
+    color: white;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 85%;
+    background-position: center;
+    background-image: url("/assets/game-over.gif");
+    background-size: 75%;
+    background-repeat: no-repeat;
+
+    animation: snap-bg-pulse 4s infinite steps(1, end);
+    .game-over-btn{
+        border: 12px straight black;
+        padding: 8px;
+        color: white;
+        opacity: 100%;
+        background-color: black;
+    }
+}

@@ -25,7 +25,7 @@ class StoriesController < ApplicationController
   def create
     @story = Story.new({
                          character_id: @character.id,
-                         health_points: 20,
+                         health_points: 100,
                          summary: "",
                          level: 1,
                          setting: params[:story][:setting],
