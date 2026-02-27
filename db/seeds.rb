@@ -12,6 +12,7 @@ puts "Cleaning DB..."
 Character.destroy_all
 Story.destroy_all
 User.destroy_all
+StorySample.destroy_all
 
 puts "Seeding DB..."
 
