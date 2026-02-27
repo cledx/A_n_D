@@ -6,7 +6,7 @@
       <div class="p-4">
         <%= render "shared/back_button" %>
 
-        <h5 class="mb-3">Character selected:</h5>
+        <h5 class="mb-3 mt-3">Character:</h5>
 
         <div class="horizontal-character-story-card">
 
@@ -40,7 +40,7 @@
       <div class="p-4">
 
         <h1 class="mb-1">Start your adventure:</h1>
-        <p class="mb-4">Select a path or forge your own!</p>
+        <p class="mb-2">Select a path or forge your own!</p>
         <!-- Story options -->
 
         <p class="small mb-0">Path 1:</p>
@@ -77,12 +77,12 @@
 
               <i class="fa-solid fa-caret-right me-2"></i>
             <% end %>
-            <p class="txt-white ms-2 w-100"><%= @option_2.summary %></p>
+            <p class="txt-white ms-2 mb-0 w-100"><%= @option_2.summary %></p>
         </div>
-        <hr>
+        <hr class="my-1">
         <!-- Custom form -->
         <div class="border-box-story">
-        <h6><i class="fa-solid fa-caret-right me-2"></i>Choose your own journey:</h6>
+        <h6><i class="fa-solid fa-caret-right me-2"></i>Path 3: Choose your own journey!</h6>
         <%= simple_form_for @story, url: character_stories_path(@character) do |f| %>
           <div class="row">
             <div class="col-md-6">

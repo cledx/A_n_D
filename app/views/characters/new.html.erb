@@ -24,7 +24,7 @@
       <div class="col-lg-7 preview-column d-flex align-items-center justify-content-center bg-info">
         <div class="card preview-card w-100 p-4 h-100 d-flex flex-column bg-white">
           <div class="d-flex justify-content-between">
-              <h5>Generate Character:</h5>
+              <h5 class="m-0">Generate Character:</h5>
             <div class="d-flex justify-content-end align-items-center bg-white">
               <button type="button"
                       class="btn btn-sm btn-outline-secondary text-dark button-type"
@@ -58,8 +58,8 @@
           <div class="fixed-basic-info bg-white">
 
             <div class="mb-3 ">
-              <h5>What's your adventurer's name?</h5>
-              <p class="small">Start by choosing your character's main settings.</p>
+              <h5>Choose Your Character's Settings</h5>
+              <p class="small">What's your adventurer's name?</p>
               <hr>
               <%= f.label :name, "Character Name" %>
               <%= f.text_field :name, class: "form-control bg-white", required: true %>
