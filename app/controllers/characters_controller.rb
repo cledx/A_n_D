@@ -29,13 +29,11 @@ class CharactersController < ApplicationController
     race = params[:race]
     char_class = params[:character_class]
     gender = params[:gender]
-    appearance_desc = params[:appearance_description]
+    appearance_desc = params[:appearance_description] || "adventuring clothes"
 
     begin
       # Usando RubyLLM
-      response = RubyLLM.paint("An #{race} #{char_class} character in an RPG game. Just only one front-view full-body
-      image of a #{gender} character with #{appearance_desc} in pixel art style with white background,
-      don't put text or isolate shapes around .")
+      response = RubyLLM.paint("A #{race} #{char_class} character from a fantasy game. They are standing with their full body in view. They are a #{gender} character with #{appearance_desc} in pixel art style with a white background.")
 
       image_url = response.url
 

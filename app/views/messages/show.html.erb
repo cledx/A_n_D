@@ -3,8 +3,10 @@
     <div>
       <div class="container card-borde-dark mb-2 bg-light">
         <div class="d-flex align-items-center border-bottom border-primary ">
-          <%= link_to "<", stories_path, class: "text-decoration-none" %>
-          <h2 class="ms-2 mb-0">Story Title</h2>
+          <%= link_to  stories_path, class: "text-decoration-none"  do %>
+          <i class="fa-solid fa-tent-arrow-turn-left"></i>
+          <% end %>
+          <h2 class="ms-2 mb-0"><%= @story.title %></h2>
         </div>
         <div class="d-flex align-items-center">
           <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/greece.jpg", class="img-fluid avatar-large ms-2 my-1" />

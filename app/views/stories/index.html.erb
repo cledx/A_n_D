@@ -58,25 +58,27 @@
                 class: "img-fluid"
               ) %>
           <div class="my-character-info">
-              <h3 class="mt-2 mb-0"><%= character.name || " " %></h3>
+              <h3 class="mt-2 mb-0"><%= character.nil? ? "Make a Character!" : character.name %></h3>
               <div class="d-flex justify-content-between">
-                <p class="m-0 text-light"><%= character.character_class || " " %></p>
-                <p class="m-0 text-light"><%= character.race || " " %></p>
-              </div>
+                <p class="m-0 text-light"><%= character.nil? ? "Class" : character.character_class %></p>
+                <p class="m-0 text-light"><%= character.nil? ? "Race" : character.race %></p>
+              </div>  
           </div>
         </div>
       </turbo-frame>
 <%# avatars %>
       <ul class="list-unstyled d-flex flex-wrap gap-2 mt-3">
-        <% @characters.each do |character| %>
-          <li>
-            <%= link_to stories_path(character_id: character.id), data: { turbo_frame: "character_card" } do %>
-              <%= image_tag(
-                    "placeholder.png",
-                    class: "avatar-large"
-                  ) %>
-            <% end %>
-          </li>
+        <% if @characters.count > 1 %>
+          <% @characters.each do |character| %>
+            <li>
+              <%= link_to stories_path(character_id: character.id), data: { turbo_frame: "character_card" } do %>
+                <%= image_tag(
+                      "placeholder.png",
+                      class: "avatar-large"
+                    ) %>
+              <% end %>
+            </li>
+          <% end %>
         <% end %>
       </ul>
     </div>
