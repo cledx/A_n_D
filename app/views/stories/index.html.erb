@@ -51,18 +51,23 @@
       <turbo-frame id="character_card">
         <div class="my-character-card my-3 pt-3 ps-4 pe-4 pb-2">
           <% character = @selected_character %>
-          <%= image_tag(
-                character&.photo&.attached? ?
-                  cl_image_path(character.photo.key) :
-                  "placeholder.png",
-                class: "img-fluid"
-              ) %>
+          <%= if character&.photo&.attached?
+            cl_image_tag(
+              character.photo.key,
+              crop: :fill,
+              width: 800,
+              height: 500,
+              class: "rounded-3 w-100"
+            )
+          else
+            image_tag("placeholder.png", class: "rounded-3 w-100")
+          end %>
           <div class="my-character-info">
               <h3 class="mt-2 mb-0"><%= character.nil? ? "Make a Character!" : character.name %></h3>
               <div class="d-flex justify-content-between">
                 <p class="m-0 text-light"><%= character.nil? ? "Class" : character.character_class %></p>
                 <p class="m-0 text-light"><%= character.nil? ? "Race" : character.race %></p>
-              </div>  
+              </div>
           </div>
         </div>
       </turbo-frame>
@@ -72,7 +77,13 @@
   <% @characters.each do |character| %>
     <li>
       <%= link_to stories_path(character_id: character.id), data: {turbo_frame: "character_card", action: "click->avatar-select#select"} do %>
-        <%= image_tag "placeholder.png", class: "avatar-large", data: { avatar_select_target: "avatar" } %>
+        <%= image_tag(
+      character.photo.attached? ?
+        cl_image_path(character.photo.key, crop: :fill) :
+        "placeholder.png",
+      class: "avatar-large",
+      data: { avatar_select_target: "avatar" }
+    ) %>
       <% end %>
     </li>
   <% end %>
