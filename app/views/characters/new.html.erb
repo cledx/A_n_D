@@ -104,8 +104,8 @@
                           data: {
                             character_image_generation_target: "classes"
                           } %>
-                    <%= label_tag klass, class: "w-100" do %>
-                      <div class="d-flex flex-column align-items-center btn btn-outline-primary">
+                    <%= label_tag "class_#{klass}", klass, class: "btn btn-outline-primary w-100" do %>
+                      <div class="d-flex flex-column align-items-center">
                         <%= image_tag "#{classes[index]}", class: "icon" %>
                         <%= "#{klass}" %>
                       </div>
@@ -139,7 +139,7 @@
                             character_image_generation_target: "races"
                           }
                            %>
-                    <%= label_tag race, class: "btn btn-outline-primary w-100" do %>
+                    <%= label_tag "race_#{race}", race, class: "btn btn-outline-primary w-100" do %>
                       <div class="d-flex flex-column align-items-center">
                         <%= image_tag "#{races[index]}", class: "icon" %>
                         <%= "#{race}" %>
@@ -171,16 +171,9 @@
                 <button type="button" class="btn btn-outline-primary prev-step" data-action="click->character-image-generation#previous">
                   Back
                 </button>
-                <% if @character.photo.key? %>
-                  <%= f.submit "Create Character", class: "btn btn-secondary" %>
-                  <button type="button" class="btn btn-outline-primary" data-action="click->character-image-generation#generateImage" data-character-image-generation-target="generateBtn">
-                    Regenerate Appearance
-                  </button>
-                <% else %>
-                  <button type="button" class="btn btn-outline-primary" data-action="click->character-image-generation#generateImage" data-character-image-generation-target="generateBtn">
-                    Generate Appearance
-                  </button>
-                <% end %>
+                <button type="button" class="btn btn-outline-primary" data-action="click->character-image-generation#generateImage" data-character-image-generation-target="generateBtn">
+                  Generate Appearance
+                </button>
               </div>
             </div>
 
