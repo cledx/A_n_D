@@ -1,5 +1,5 @@
-<div class="container-fluid character-wrapper bg-info m-2 p-4" data-controller="character-image-generation">
-  <div class="row vh-90 m-2">
+<div class="container-fluid character-wrapper bg-info m-3 p-2" data-controller="character-image-generation">
+  <div class="row m-3 character-fill-page">
 
     <%= form_with model: @character,
                   local: true,
@@ -18,26 +18,23 @@
       <% end %>
 
       <!-- ================= LEFT (60%) ================= -->
-      <div class="col-lg-7 preview-column d-flex align-items-center justify-content-center bg-info">
-        <div class="card preview-card w-100 p-4 h-100 d-flex flex-column bg-white">
-          <div class="d-flex justify-content-between">
-              <h5>Generate Character:</h5>
+      <div class="col-lg-7">
+        <div class="card preview-card px-4 pt-4 pb-2 bg-white">
+          <div class="d-flex justify-content-between align-items-center">
+              <h5 class="m-0">Generate Character:</h5>
             <div class="d-flex justify-content-end align-items-center bg-white">
               <button type="button"
-                      class="btn btn-sm btn-outline-secondary text-dark me-4"
+                      class="btn btn-sm btn-outline-secondary text-dark"
                       id="editAppearanceBtn"
                       data-action="click->character-image-generation#showInput">
                 Edit
               </button>
-              <button type="button" class="btn btn-outline-primary" data-action="click->character-image-generation#generateImage" data-character-image-generation-target="generateBtn">
-                Generate Appearance
-              </button>
             </div>
         </div>
 
-          <div class="preview-image-wrapper text-center mt-3 flex-grow-1 d-flex align-items-center justify-content-center ">
+          <div class="d-flex justify-content-center m-2">
             <%= image_tag "https://i.pinimg.com/736x/b3/7e/ae/b37eae5174dd61d337fe1fb7d9bfe979.jpg",
-                  class: "img-fluid preview-image", data: { character_image_generation_target: "preview"} %>
+                  class: "img-fluid fill-card", data: { character_image_generation_target: "preview"} %>
           </div>
 
           <!-- Campo de aparência separado do bio -->
@@ -46,21 +43,20 @@
             <textarea id="appearance_description" class="form-control bg-white" rows="3" data-character-image-generation-target="appearanceInput"></textarea>
           </div>
 
-              <p class="mt-2 small">* Set the character information and then try to generate an image.</p>
+              <%# <p class="mt-2 small">* Set the character information and then try to generate an image.</p> %>
         </div>
       </div>
 
       <!-- ================= RIGHT (40%) ================= -->
-      <div class="col-lg-5 form-column d-flex">
-        <div class="card form-card w-100 p-4 h-100 d-flex flex-column bg-white">
+      <div class="col-lg-5 fill-page">
+        <div class="p-4 d-flex flex-column bg-white">
 
           <!-- ===== FIXED SECTION ===== -->
           <div class="fixed-basic-info bg-white">
 
-            <div class="mb-3 ">
+            <div>
               <h5>What your adventurer's name?</h5>
-              <p class="small">Start by choosing your character's main settings.</p>
-              <hr>
+              <p class="small border-bottom pb-2 mb-3">Start by choosing your character's main settings.</p>
               <%= f.label :name, "Character Name" %>
               <%= f.text_field :name, class: "form-control bg-white", required: true %>
             </div>
@@ -79,23 +75,24 @@
                 %>
                 <%= label_tag "gender_#{gender}",
                       gender,
-                      class: "btn btn-outline-primary me-2 mb-2" %>
+                      class: "btn btn-outline-primary mb-2 me-2" %>
               <% end %>
             </div>
-
-            <hr class="mt-4">
           </div>
-
+          <hr class="mt-2 mb-3">
           <!-- ===== STEPS AREA ===== -->
-          <div class="steps-wrapper flex-grow-1 overflow-auto">
+          <div class="steps-wrapper">
 
             <!-- STEP 1 -->
             <div class="form-step" id="step-1" data-character-image-generation-target="steps">
-              <h6 class="mt-3 mb-2">Select Class:</h6>
+              <h6 class="mb-2">Select Class:</h6>
               <div class="row">
+                <% classes = ["swordsman.png", "magician.png", "thief.png", "character.png",
+                 "knight.png", "bow.png", "monk.png", "bard.png", "druid.png"
+                 ] %>
                 <% ["Warrior","Mage","Rogue",
                     "Cleric","Paladin","Ranger",
-                    "Monk","Bard","Druid", ].each do |klass| %>
+                    "Monk","Bard","Druid", ].each_with_index do |klass, index| %>
                   <div class="col-4 mb-3">
                     <%= f.radio_button :character_class,
                           klass,
@@ -104,13 +101,16 @@
                           data: {
                             character_image_generation_target: "classes"
                           } %>
-                    <%= label_tag "class_#{klass}",
-                          klass,
-                          class: "btn btn-outline-primary w-100" %>
+                    <%= label_tag klass, class: "w-100" do %>
+                      <div class="d-flex flex-column align-items-center btn btn-outline-primary">
+                        <%= image_tag "#{classes[index]}", class: "icon" %>
+                        <%= "#{klass}" %>
+                      </div>
+                    <% end %>
                   </div>
                 <% end %>
               </div>
-              <div class="text-end mt-3">
+              <div class="text-end">
                 <button type="button" class="btn btn-primary next-step" data-action="click->character-image-generation#next">
                   Next
                 </button>
@@ -119,11 +119,14 @@
 
             <!-- STEP 2 -->
             <div class="form-step d-none" id="step-2" data-character-image-generation-target="steps">
-              <h6 class="mt-3 mb-2">Select Race:</h6>
+              <h6 class="mb-2">Select Race:</h6>
               <div class="row">
+                <% races = ["human.png", "elf.png", "dwarf.png", "orc.png",
+                 "tiefling.png", "gnome.png", "dragonborn.png", "halfling.png", "half-elf.png"
+                 ] %>
                 <% ["Human","Elf","Dwarf",
                     "Orc","Tiefling","Gnome",
-                    "Dragonborn","Halfling","Half-Elf"].each do |race| %>
+                    "Dragonborn","Halfling","Half-Elf"].each_with_index do |race, index| %>
                   <div class="col-4 mb-3">
                     <%= f.radio_button :race,
                           race,
@@ -133,9 +136,12 @@
                             character_image_generation_target: "races"
                           }
                            %>
-                    <%= label_tag "race_#{race}",
-                          race,
-                          class: "btn btn-outline-primary w-100" %>
+                    <%= label_tag race, class: "btn btn-outline-primary w-100" do %>
+                      <div class="d-flex flex-column align-items-center">
+                        <%= image_tag "#{races[index]}", class: "icon" %>
+                        <%= "#{race}" %>
+                      </div>
+                    <% end %>
                   </div>
                 <% end %>
               </div>
@@ -151,19 +157,28 @@
 
             <!-- STEP 3 -->
             <div class="form-step d-none" id="step-3" data-character-image-generation-target="steps">
-              <h6 class="mt-3 mb-2">Biography</h6>
+              <h6 class="mb-2">Biography</h6>
               <%= f.text_area :bio,
                     class: "form-control bg-white mb-3",
                     rows: 5 %>
 
               <input type="text" name="character[img_url]" id="" hidden data-character-image-generation-target="imageFile">
-
-              <div class="d-flex justify-content-between">
+              <div class="d-flex justify-content-between char-create-fill-margin">
                 <button type="button" class="btn btn-outline-primary prev-step" data-action="click->character-image-generation#previous">
                   Back
                 </button>
-                <%= f.submit "Create Character",
-                      class: "btn btn-secondary" %>
+
+                <% if @character.photo.key? %>
+                  <%= f.submit "Create Character", class: "btn btn-secondary" %>
+                  <button type="button" class="btn btn-outline-primary" data-action="click->character-image-generation#generateImage" data-character-image-generation-target="generateBtn">
+                    Regenerate Appearance
+                  </button>
+                <% else %>
+                  <button type="button" class="btn btn-outline-primary" data-action="click->character-image-generation#generateImage" data-character-image-generation-target="generateBtn">
+                    Generate Appearance
+                  </button>
+                <% end %>
+
               </div>
             </div>
 
