@@ -1,4 +1,7 @@
 <div class="container-fluid character-wrapper bg-info m-2 p-4" data-controller="character-image-generation">
+  <div>
+    <%= render "shared/back_button" %>
+  </div>
   <div class="row vh-90 m-2">
 
     <%= form_with model: @character,
@@ -55,7 +58,7 @@
           <div class="fixed-basic-info bg-white">
 
             <div class="mb-3 ">
-              <h5>What your adventurer's name?</h5>
+              <h5>What's your adventurer's name?</h5>
               <p class="small">Start by choosing your character's main settings.</p>
               <hr>
               <%= f.label :name, "Character Name" %>
