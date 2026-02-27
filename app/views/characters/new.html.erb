@@ -24,13 +24,10 @@
               <h5>Generate Character:</h5>
             <div class="d-flex justify-content-end align-items-center bg-white">
               <button type="button"
-                      class="btn btn-sm btn-outline-secondary text-dark me-4"
+                      class="btn btn-sm btn-outline-secondary text-dark"
                       id="editAppearanceBtn"
                       data-action="click->character-image-generation#showInput">
                 Edit
-              </button>
-              <button type="button" class="btn btn-outline-primary" data-action="click->character-image-generation#generateImage" data-character-image-generation-target="generateBtn">
-                Generate Appearance
               </button>
             </div>
         </div>
@@ -93,9 +90,12 @@
             <div class="form-step" id="step-1" data-character-image-generation-target="steps">
               <h6 class="mt-3 mb-2">Select Class:</h6>
               <div class="row">
+                <% classes = ["swordsman.png", "magician.png", "thief.png", "character.png",
+                 "knight.png", "bow.png", "monk.png", "bard.png", "druid.png"
+                 ] %>
                 <% ["Warrior","Mage","Rogue",
                     "Cleric","Paladin","Ranger",
-                    "Monk","Bard","Druid", ].each do |klass| %>
+                    "Monk","Bard","Druid", ].each_with_index do |klass, index| %>
                   <div class="col-4 mb-3">
                     <%= f.radio_button :character_class,
                           klass,
@@ -104,13 +104,16 @@
                           data: {
                             character_image_generation_target: "classes"
                           } %>
-                    <%= label_tag "class_#{klass}",
-                          klass,
-                          class: "btn btn-outline-primary w-100" %>
+                    <%= label_tag "class_#{klass}", klass, class: "btn btn-outline-primary w-100" do %>
+                      <div class="d-flex flex-column align-items-center">
+                        <%= image_tag "#{classes[index]}", class: "icon" %>
+                        <%= "#{klass}" %>
+                      </div>
+                    <% end %>
                   </div>
                 <% end %>
               </div>
-              <div class="text-end mt-3">
+              <div class="text-end">
                 <button type="button" class="btn btn-primary next-step" data-action="click->character-image-generation#next">
                   Next
                 </button>
@@ -121,9 +124,12 @@
             <div class="form-step d-none" id="step-2" data-character-image-generation-target="steps">
               <h6 class="mt-3 mb-2">Select Race:</h6>
               <div class="row">
+                <% races = ["human.png", "elf.png", "dwarf.png", "orc.png",
+                 "tiefling.png", "gnome.png", "dragonborn.png", "halfling.png", "half-elf.png"
+                 ] %>
                 <% ["Human","Elf","Dwarf",
                     "Orc","Tiefling","Gnome",
-                    "Dragonborn","Halfling","Half-Elf"].each do |race| %>
+                    "Dragonborn","Halfling","Half-Elf"].each_with_index do |race, index| %>
                   <div class="col-4 mb-3">
                     <%= f.radio_button :race,
                           race,
@@ -133,9 +139,12 @@
                             character_image_generation_target: "races"
                           }
                            %>
-                    <%= label_tag "race_#{race}",
-                          race,
-                          class: "btn btn-outline-primary w-100" %>
+                    <%= label_tag "race_#{race}", race, class: "btn btn-outline-primary w-100" do %>
+                      <div class="d-flex flex-column align-items-center">
+                        <%= image_tag "#{races[index]}", class: "icon" %>
+                        <%= "#{race}" %>
+                      </div>
+                    <% end %>
                   </div>
                 <% end %>
               </div>
@@ -162,8 +171,9 @@
                 <button type="button" class="btn btn-outline-primary prev-step" data-action="click->character-image-generation#previous">
                   Back
                 </button>
-                <%= f.submit "Create Character",
-                      class: "btn btn-secondary" %>
+                <button type="button" class="btn btn-outline-primary" data-action="click->character-image-generation#generateImage" data-character-image-generation-target="generateBtn">
+                  Generate Appearance
+                </button>
               </div>
             </div>
 
