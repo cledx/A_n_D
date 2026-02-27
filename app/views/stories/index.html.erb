@@ -9,10 +9,10 @@
       <div class="stories-grid flex-grow-1 overflow-y-auto mt-2">
         <% @stories.each do |story| %>
           <div class="story-card">
-            
+
           <% if story.messages.any? %>
             <% last_message = story.messages.last %>
-            <%= link_to message_path(last_message), class: "story-card text-decoration-none text-dark" do %>
+            <%= link_to message_path(last_message), class: "story-card m-0 w-100 text-decoration-none text-dark" do %>
               <div class="story-image py-2 ps-2">
                 <% if story.character.photo.attached? %>
                   <%= cl_image_tag(story.character.photo.key) %>
