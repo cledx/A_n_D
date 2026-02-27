@@ -57,3 +57,12 @@
   color: white;
   text-align: center;
 }
+
+.dialog-left {
+  background: #f8f9fa;
+  border-radius: 0 20px 20px 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+.dialog-right {
+  border-radius: 20px 0 20px 20px;
+}
