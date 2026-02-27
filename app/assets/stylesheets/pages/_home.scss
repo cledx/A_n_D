@@ -1,1 +1,12 @@
-// Specific CSS for your home-page
+body {
+  background-image: image-url("home_background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.book {
+  margin-left: -240px;
+  margin-top: 0px;
+}

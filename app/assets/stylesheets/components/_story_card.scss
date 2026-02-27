@@ -1,3 +1,9 @@
+.fill-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .story-card {
   display: flex;
   height: 140px;
