@@ -71,10 +71,7 @@
         <% @characters.each do |character| %>
           <li>
             <%= link_to stories_path(character_id: character.id), data: { turbo_frame: "character_card" } do %>
-              <%= image_tag(
-                    "placeholder.png",
-                    class: "avatar-large"
-                  ) %>
+              <%= image_tag( "placeholder.png", class: "avatar-large" ) %>
             <% end %>
           </li>
         <% end %>
@@ -91,25 +88,32 @@
           x
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body pb-3">
         <% if current_user.characters.any? %>
           <h5 class="mb-4">Choose a Character</h5>
-          <div class="d-flex align-items-center justify-content-center flex-wrap pb-2">
+          <div class="d-flex flex-wrap justify-content-center gap-3">
             <% current_user.characters.each do |character| %>
-              <div class="character-hover-wrapper">
-                <%= link_to new_character_story_path(character) do %>
-                  <%= image_tag(character.photo.attached? ? cl_image_path(character.photo.key) : "placeholder.png", class: "avatar-large") %>
+              <div class="character-hover-wrapper position-relative">
+                <%= link_to new_character_story_path(character), class: "text-decoration-none" do %>
+                  <%= image_tag(character.photo.attached? ? cl_image_path(character.photo.key, crop: :fill) : "placeholder.png", class: "avatar-large") %>
                 <% end %>
                 <div class="character-name-popover">
                   <%= character.name %>
                 </div>
               </div>
             <% end %>
+            <div class="character-hover-wrapper position-relative">
+              <%= link_to new_character_path, class: "text-decoration-none" do %>
+                <div class="avatar-large d-flex align-items-center justify-content-center bg-dark">
+                  <i class="fa-solid fa-plus fa-2x text-white"></i>
+                </div>
+              <% end %>
+              <div class="character-name-popover">
+                Create a New Character
+              </div>
+            </div>
           </div>
         <% end %>
-      </div>
-      <div class="justify-content-center pb-3">
-        <%= link_to "Create New Character", new_character_path, class: "btn btn-secondary mt-2" %>
       </div>
     </div>
   </div>
