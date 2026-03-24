@@ -11,15 +11,12 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
-          <li class="nav-item active">
+          <li class="nav-item active me-3">
             <%= link_to "Dashboard", stories_path, class: "nav-link text-white" %>
           </li>
-          <li class="nav-item">
-            <%= link_to "C4rl0s", "#", class: "nav-link text-white" %>
-          </li>
           <li class="nav-item dropdown">
-          <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= image_tag "https://avatars.githubusercontent.com/u/253059767?v=4", class: "avatar", alt: "dropdown menu" %>
+          <a href="#" class="nav-link text-white me-3" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa-solid fa-user me-2"></i><%= current_user.email.split("@").first %>
           </a>
             <div class="dropdown-menu dropdown-menu-end bg-white" aria-labelledby="navbarDropdown">
               <%= link_to "Action", "#", class: "dropdown-item" %>
@@ -29,7 +26,7 @@
           </li>
         <% else %>
           <li class="nav-item btn btn-secondary me-3">
-            <%= link_to "Register", new_user_session_path, class: "nav-link text-white p-0" %>
+            <%= link_to "Register", new_user_registration_path, class: "nav-link text-white p-0" %>
           </li>
           <li class="nav-item btn btn-light">
             <%= link_to "Login", new_user_session_path, class: "nav-link text-primary p-0" %>
